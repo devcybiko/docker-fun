@@ -1,8 +1,53 @@
-# Docker Fun
+# Docker Fun (well, PodMan, actually)
 - a docker example using debian and raspberry pi sdk
 - to create a development environment
 
-## Setup Macos
+## build.sh - build the Docker image
+- cleans up (prunes) old containers and images
+- builds to rpi-pico-sdk-image
+- runs the RPi-Pico-SDK container
+    - it initilizes the container
+- does a `commit` which creates an image based on the last run
+    - the new (final) image is called `rpi-pico-sdk-container`
+
+## run.sh - run the docker image with ./projects mountpoint
+- runs the rpi-pico-sdk-container
+- mounts the local 'projects' folder as a volume
+- you can build projects from the CLI
+- or you can attach via VSCODE
+- But, since you have the CLI there's no advantage to that
+- Regardless, you can use your favorite IDE and edit the files in the ./projects folder and the results will be immediately be available in the container
+- you can drag-n-drop .uf2 files from the ./projects folder to the RPI-RP2 device with no problems
+
+## Files
+- ./projects - your 'c' projects
+- ./rpi-pico-sdk-image - files for building the Docker image
+    - local scripts
+        - build.sh - builds the image and container
+        - Dockerfile - the Dockerfile for the image
+        - install.sh - this is the `CMD` file that builds the PICO SDK in the image
+        - pico_setup.sh - a doctored version of the "standard" RPI PICO SDK install script
+    - delivered to rpi-pico-sdk:/home
+        - bashrc - the .bashrc file for the finished image
+    - delivered to rpi-pico-sdk:/usr/local/bin
+        - env.sh - sets the PICO_SDK environment vars
+        - hello.sh - a test program, prints "Hello World!"
+        - login.sh - a script to cd /home and source .bashrc
+        - makepico.sh a slightly hacked up version of Tony Smith's script to create a skeletal project folder complete with CMAKE scripts
+
+## makepico.sh - Tony Smith's project template
+ - `makepico.sh foldername`
+ - generates a folder and initial files
+ - main.c, main.h - template source files
+ - CMakeLists.txt - a CMake script that points to PICO_SDK for all the goodies
+ - pico_sdk_import.cmake - points to the "pico-extras"
+ - make.sh - run once to create the 'build' folder and generate the .uf2 file
+    - from then on just 'cd build' and 'make' to rebuild
+    - no need to `cmake` again
+    
+
+
+## Setup MacOS
 - brew install wget
 - brew install podman
 - brew install --cask podman-desktop
@@ -27,7 +72,7 @@
 - podman machine start
     - starts your podman server for listing repos etc
 - podman pull debian
-    - download the latest debian from docker hup
+    - download the latest debian from docker hub
 - podman images
     - lists images
 
@@ -79,7 +124,4 @@
 - podman build -t rpi-pico-sdk-image .
     - create the image
 - podman run rpi-pico-sdk-image
-# docker-fun
-# docker-fun
-# docker-fun
-# docker-fun
+
