@@ -47,8 +47,9 @@
     - no need to `cmake` again
     
 
+## NOTES - using PodMan and creating Docker images
 
-## Setup MacOS
+### Setup MacOS
 - brew install wget
 - brew install podman
 - brew install --cask podman-desktop
@@ -67,7 +68,7 @@
     - delivered to /Applications
 - bottles - precompiled binaries
 
-## Get Debian
+### Get Debian
 - podman machine init
     - downloads a 568MB Fedora image as your VM
 - podman machine start
@@ -77,7 +78,7 @@
 - podman images
     - lists images
 
-## Podman concepts
+### Podman concepts
 - IMAGE COMMANDS
     - podman images
         - list all remote and local images
@@ -118,10 +119,10 @@
     - podman save
     - podman cp /path/on/host [CONTAINER_ID]:/path/in/container
 
-## Get RPI Pico SDK script
+### Get RPI Pico SDK script
 - wget https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh
 
-## Run the container and create an image
+### Run the container and create an image
 - podman build -t rpi-pico-sdk-image .
     - create the image
 - podman run rpi-pico-sdk-image
