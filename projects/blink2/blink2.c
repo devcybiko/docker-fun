@@ -24,7 +24,7 @@ int main()
     gpio_set_dir(LED_PIN, GPIO_OUT);
     while (true)
     {
-        blink(250, 75);
+        blink(75, 500);
     }
 #endif
 }
