@@ -37,6 +37,7 @@
 
 ## makepico.sh - Tony Smith's project template
  - `makepico.sh foldername`
+ - run this inside the Docker container
  - generates a folder and initial files
  - main.c, main.h - template source files
  - CMakeLists.txt - a CMake script that points to PICO_SDK for all the goodies
