@@ -1,0 +1,10 @@
+{
+    "cmake.environment": {
+        "PICO_SDK_PATH": "/home/pico/pico-sdk"
+    },
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "[Makefile]": {
+        "editor.tabSize": 4,       // Set the desired tab size (e.g., 4 for a 4-space tab)
+        "editor.insertSpaces": false            // Set this to false to use hard tabs
+    }
+}

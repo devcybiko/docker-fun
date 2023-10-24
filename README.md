@@ -54,7 +54,7 @@
 - brew install podman
 - brew install --cask podman-desktop
 - helper service:
-    - The system helper service is not installed; the default Docker API socket address can't be used by podman. If you would like to install it run the\nfollowing commands:
+    - The system helper service is not installed; the default Docker API socket address can't be used by podman. If you would like to install it run the following commands:
     - sudo /opt/homebrew/Cellar/podman/4.7.1/bin/podman-mac-helper install
     - You can still connect Docker API clients by setting DOCKER_HOST using the following command in your terminal session:
     - export DOCKER_HOST='unix:///Users/greg/.local/share/containers/podman/machine/qemu/podman.sock'
