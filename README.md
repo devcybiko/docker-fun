@@ -115,7 +115,7 @@
     - podman rm ID/NAME
     - podman container prune
     - podman commit CONTAINER-NAME image-name
-	- to make a copy of a container into an image
+	-   to make a copy of a container into an image
     - podman save
     - podman cp /path/on/host [CONTAINER_ID]:/path/in/container
 
@@ -127,3 +127,17 @@
     - create the image
 - podman run rpi-pico-sdk-image
 
+## Configure VSCode for RPI Pico and the SDK/Playground
+
+Here are the steps:
+
+Open the Command Palette (Ctrl+Shift+P) and type "C/C++: Edit Configurations (JSON)" and press Enter. This will open the c_cpp_properties.json file.
+
+In the c_cpp_properties.json file, you will see a "configurations" section. In this section, there is an "includePath" setting. This is where you specify the paths to your include files.
+
+Add the paths to your include files to the "includePath" setting. Paths are relative to the workspace root directory and should be separated by commas.
+
+## To create a new project 
+
+- inside the VM (podman container)
+- `makepico.sh`

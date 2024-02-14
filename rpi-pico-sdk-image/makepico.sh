@@ -311,7 +311,7 @@ chmod a+x "${1}/make.sh"
 projects=()
 do_swd=0
 do_cpp=0
-users_name="<YOU>"
+users_name="greg@agilefrontiers.com"
 proj_version="1.0.0"
 next_is_arg=0
 last_arg=""
