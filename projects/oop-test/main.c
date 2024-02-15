@@ -4,18 +4,18 @@
 
 int main() {
     DEBUG("> main\n");
-    ObjectClass *Object = getObjectClass();
-    ObjectInstance *obj = Object->new("greg");
-    Object->debug(obj, "wowsers");
-    Object->destroy(obj);
+    Object *obj = objectNew("greg");
+    obj->debug(obj, "wowsers")->destroy(obj);
 
-    ListClass *List = getListClass();
-    ListInstance *list = List->new("smith");
-    List->debug(list, "list!");
-    for(int i=0; i<1000; i++) {
-        List->push(list, (void *) i);
+    List *list = listNew("smith", 10, 0);
+    list->debug(list, "list!");
+    for(int i=0; i<20; i++) {
+        char s[100];
+        sprintf(s, "%d", i);
+        printf("%d, %s\n", i, s);
+        list->push(list, strdup(s));
     }
-    // List->debug(list, "list!");
+    list->debug(list, "list!");
     
     // Node *node = newNode("smith", NULL);
     // node->_->debug(node, "node!");

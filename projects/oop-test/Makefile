@@ -1,5 +1,5 @@
 
-CPPFLAGS = -Wno-macro-redefined -Wno-int-to-void-pointer-cast -Wno-unused-value
+CPPFLAGS = -Wno-macro-redefined -Wno-int-to-void-pointer-cast -Wno-unused-value -Werror
 # The final executable file
 main: main.o Object.o List.o
 #	gcc -o main main.o Object.o

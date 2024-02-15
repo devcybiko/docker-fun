@@ -3,24 +3,22 @@
 
 #include "Object.h"
 
-#define ParentClass ObjectClass
-#define _ParentClass _ObjectClass
-#define PARENT_METHODS OBJECT_METHODS
-#define PARENT_MEMBERS OBJECT_MEMBERS
+typedef struct List List;
 
-typedef struct ListClass ListClass;
-typedef struct ListInstance ListInstance;
-
-#define NEW_METHODS \
-    void (*push)(void *this, void *value);\
-    void *(*get)(void *this, int n);
-
-#define NEW_MEMBERS \
-    void **list_array; \
-    int list_extent; \
+typedef struct List {
+    Object *obj;
+    char **list_array;
+    int list_extent;
     int list_size;
+    double list_mult;
 
-NEW_CLASS(ListClass, getListClass, ListInstance)
-NEW_INSTANCE(ListInstance)
+    void (*destroy)(List *obj);
+    List *(*init)(List *obj, char *name, int extent, double mult);
+    List *(*debug)(List *obj, char *args);
+    List *(*push)(List *, char *value);
+    char *(*get)(List *this, int n);
+} List;
+
+List *listNew(char *name, int extent, double mult);
 
 #endif // _NODE_
