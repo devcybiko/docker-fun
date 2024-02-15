@@ -15,6 +15,7 @@ typedef struct ListObj {
 } ListObj;
 
 typedef struct ListClass {
+    ObjectClass *Object;
     ListObj *(*new)(char *name, int extent, double mult);
     void (*destroy)(ListObj *obj);
     ListClass *(*init)(ListObj *obj, char *name, int extent, double mult);

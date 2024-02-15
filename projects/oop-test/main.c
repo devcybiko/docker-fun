@@ -4,8 +4,9 @@
 
 int main() {
     DEBUG("> main\n");
-    Object *obj = objectNew("greg");
-    obj->debug(obj, "wowsers")->destroy(obj);
+    ObjectClass *Obj = getObjectClass();
+    Object *obj = Obj->new("greg");
+    Obj->debug(obj, "wowsers")->destroy(obj);
 
     ListClass *List = getListClass();
     ListObj *list = List->new("smith", 10, 0);

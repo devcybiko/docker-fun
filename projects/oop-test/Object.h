@@ -12,15 +12,20 @@
 // #define DEBUG printf
 #define DEBUG
 
+typedef struct ObjectClass ObjectClass;
 typedef struct Object Object;
 
 typedef struct Object {
     char *name;
-    void (*destroy)(Object *obj);\
-    Object *(*init)(Object *obj, char *name);\
-    Object *(*debug)(Object *obj, char *args);
 } Object;
 
-Object *objectNew(char *name);
+typedef struct ObjectClass {
+    Object *(*new)(char *name);
+    ObjectClass *(*destroy)(Object *obj);
+    ObjectClass *(*init)(Object *obj, char *name);
+    ObjectClass *(*debug)(Object *obj, char *args);
+} ObjectClass;
+
+ObjectClass *getObjectClass();
 
 #endif // __OBJECT__

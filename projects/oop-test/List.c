@@ -30,7 +30,7 @@ static ListClass *listPush(ListObj *this, char *s)
 static ListClass *listDebug(ListObj *this, char *args)
 {
     DEBUG("  > listDebug\n");
-    this->obj->debug(this->obj, args);
+    listClass.Object->debug(this->obj, args);
     printf("List.list_array: %p\n", this->list_array);
     printf("List.list_extent: %d\n", this->list_extent);
     printf("List.list_size: %d\n", this->list_size);
@@ -46,7 +46,7 @@ static ListClass *listDebug(ListObj *this, char *args)
 static void listDestroy(ListObj *this)
 {
     DEBUG("    > listDestroy\n");
-    this->obj->destroy(this->obj);
+    listClass.Object->destroy(this->obj);
     free(this->list_array);
     free(this);
     DEBUG("    < listDestroy\n");
@@ -55,7 +55,7 @@ static void listDestroy(ListObj *this)
 static ListClass *listInit(ListObj *this, char *name, int extent, double mult)
 {
     DEBUG("    > listInit\n");
-    this->obj = objectNew(name);
+    this->obj = listClass.Object->new(name);
     this->list_size = 0;
     this->list_extent = extent;
     this->list_mult = mult;
@@ -80,6 +80,7 @@ ListObj *listNew(char *name, int extent, double mult)
 ListClass *getListClass()
 {
     DEBUG("  > getList\n");
+    listClass.Object = getObjectClass();
     listClass.new = listNew;
     listClass.init = listInit;
     listClass.destroy = listDestroy;

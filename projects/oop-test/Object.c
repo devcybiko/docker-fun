@@ -1,31 +1,42 @@
 #include "Object.h"
 
-static Object *objectInit(Object *this, char *name) {
+static ObjectClass objectClass;
+
+static ObjectClass *objectInit(Object *this, char *name) {
     DEBUG("  > objectInit\n");
     this->name = strdup(name);
     DEBUG("  < objectInit\n");
-    return this;
+    return &objectClass;
 }
 
-static Object *objectDebug(Object *this, char *args) {
+static ObjectClass *objectDebug(Object *this, char *args) {
     printf("name: %s - %s\n", this->name, args);
-    return this;
+    return &objectClass;
 }
 
-static void objectDestroy(Object *this) {
+static ObjectClass *objectDestroy(Object *this) {
     DEBUG("  > objectDestroy %s\n", this->name);
     free(this->name);
     free(this);
     DEBUG("  < objectDestroy\n");
+    return &objectClass;
 }
 
-Object *objectNew(char *name) {
+static Object *objectNew(char *name) {
     DEBUG("  > objectNew\n");
-    Object *obj = NEW(Object);
-    obj->init = objectInit;
-    obj->destroy = objectDestroy;
-    obj->debug = objectDebug;
-    obj->init(obj, name);
+    Object *this = NEW(Object);
+    objectClass.init(this, name);
     DEBUG("  < objectNew\n");
-    return obj;
+    return this;
+}
+
+ObjectClass *getObjectClass()
+{
+    DEBUG("  > getObjectClass\n");
+    objectClass.new = objectNew;
+    objectClass.init = objectInit;
+    objectClass.destroy = objectDestroy;
+    objectClass.debug = objectDebug;
+    DEBUG("  < getObjectClass\n");
+    return &objectClass;
 }
