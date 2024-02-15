@@ -1,6 +1,6 @@
 #include "Object.h"
 #include "List.h"
-// #include "Node.h"
+#include "Node.h"
 
 int main() {
     DEBUG("> main\n");
@@ -19,8 +19,9 @@ int main() {
     }
     List->debug(list, "list!");
     
-    // Node *node = newNode("smith", NULL);
-    // node->_->debug(node, "node!");
+    NodeClass *Node = getNodeClass();
+    NodeObj *node = Node->new("lee", NULL);
+    Node->debug(node, "node!");
 
     DEBUG("< main\n");
 }

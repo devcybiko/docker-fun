@@ -1,35 +1,49 @@
 #include "Node.h"
 
-static void initNode(void *_this, char *name, Node *parent) {
-    Node *this = _this;
-    DEBUG("    > initNode\n");
-    _NodeClass.super->init(this, name);
-    this->_ = &_NodeClass;
-    this->parent = parent;
-    DEBUG("    < initNode\n");
-}
+static NodeClass nodeClass;
 
-static void debug(void *_this, char *args) {
-    Node *this = _this;
-    this->_->super->debug(this, args);
+static NodeClass *nodeDebug(NodeObj *this, char *args) {
+    nodeClass.Object->debug(this->obj, args);
+    nodeClass.List->debug(this->children, NULL);
     printf("Node.parent: %p\n", this->parent);
-    printf("Node.children: %p\n", this->children);
+    return &nodeClass;
 }
 
-static void initNodeClass(void *_thisClass) {
-    NodeClass *thisClass = _thisClass;
-    _NodeParent->initClass(thisClass);
-    thisClass->super = _NodeParent;
-    thisClass->initClass = initNodeClass;
-    thisClass->initNode = initNode;
-    thisClass->debug = (void *) debug;
+static NodeClass *nodeDestroy(NodeObj *this) {
+    DEBUG("    > nodeDestroy\n");
+    nodeClass.Object->destroy(this->obj);
+    nodeClass.List->destroy(this->children);
+    free(this);
+    DEBUG("    < nodeDestroy\n");
+    return &nodeClass;
 }
 
-Node *newNode(char *name, Node *parent) {
-    DEBUG("  > newNode\n");
-    if (!_NodeClass.initNode) initNodeClass(&_NodeClass);
-    Node *this = NEW(Node);
-    _NodeClass.initNode(this, name, parent);
-    DEBUG("  < newNode\n");
+static NodeClass *nodeInit(NodeObj *this, char *name, NodeObj *parent) {
+    DEBUG("    > nodeInit\n");
+    this->obj = nodeClass.Object->new(name);
+    this->parent = parent;
+    this->children = nodeClass.List->new("List", 16, 0);
+    DEBUG("    < nodeInit\n");
+    return &nodeClass;
+}
+
+static NodeObj *nodeNew(char *name, NodeObj *parent) {
+    DEBUG("  > nodeNew\n");
+    NodeObj *this = NEW(NodeObj);
+    nodeClass.init(this, name, parent);
+    DEBUG("  < nodeNew\n");
     return this;
+}
+
+NodeClass *getNodeClass()
+{
+    DEBUG("  > getNode\n");
+    nodeClass.Object = getObjectClass();
+    nodeClass.List = getListClass();
+    nodeClass.new = nodeNew;
+    nodeClass.init = nodeInit;
+    nodeClass.destroy = nodeDestroy;
+    nodeClass.debug = nodeDebug;
+    DEBUG("  < getNode\n");
+    return &nodeClass;
 }

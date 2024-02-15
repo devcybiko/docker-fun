@@ -1,7 +1,7 @@
 
 CPPFLAGS = -Wno-macro-redefined -Wno-int-to-void-pointer-cast -Wno-unused-value -Werror
 # The final executable file
-main: main.o Object.o List.o
+main: main.o Object.o List.o Node.o
 #	gcc -o main main.o Object.o
 
 # Compile main.c into main.o
@@ -17,4 +17,4 @@ main: main.o Object.o List.o
 
 # Clean up the build
 clean:
-	rm -f main main.o Object.o List.o
+	rm -f main main.o Object.o List.o Node.o
