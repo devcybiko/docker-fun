@@ -3,7 +3,8 @@
         {
             "name": "Mac",
             "includePath": [
-                "${PICO_SDK_PATH}/**:${PICO_EXTRAS_PATH}/**:/${workspaceFolder}/**"
+                "${PICO_SDK_PATH}/**:${PICO_EXTRAS_PATH}/**:/${workspaceFolder}/**",
+                "/Users/greg/git/docker-fun/projects/oop-test"
             ],
             "defines": [],
             "macFrameworkPath": [
@@ -12,7 +13,13 @@
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "macos-clang-arm64"
+            "intelliSenseMode": "macos-clang-arm64",
+            "browse": {
+                "path": [
+                    "."
+                ]
+            },
+            "compilerArgs": []
         }
     ],
     "version": 4
