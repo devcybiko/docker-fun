@@ -7,15 +7,16 @@ int main() {
     Object *obj = objectNew("greg");
     obj->debug(obj, "wowsers")->destroy(obj);
 
-    List *list = listNew("smith", 10, 0);
-    list->debug(list, "list!");
+    ListClass *List = getListClass();
+    ListObj *list = List->new("smith", 10, 0);
+    List->debug(list, "list!");
     for(int i=0; i<20; i++) {
         char s[100];
         sprintf(s, "%d", i);
         printf("%d, %s\n", i, s);
-        list->push(list, strdup(s));
+        List->push(list, strdup(s));
     }
-    list->debug(list, "list!");
+    List->debug(list, "list!");
     
     // Node *node = newNode("smith", NULL);
     // node->_->debug(node, "node!");

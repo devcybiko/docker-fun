@@ -3,22 +3,26 @@
 
 #include "Object.h"
 
-typedef struct List List;
+typedef struct ListClass ListClass;
+typedef struct ListObj ListObj;
 
-typedef struct List {
+typedef struct ListObj {
     Object *obj;
     char **list_array;
     int list_extent;
     int list_size;
     double list_mult;
+} ListObj;
 
-    void (*destroy)(List *obj);
-    List *(*init)(List *obj, char *name, int extent, double mult);
-    List *(*debug)(List *obj, char *args);
-    List *(*push)(List *, char *value);
-    char *(*get)(List *this, int n);
-} List;
+typedef struct ListClass {
+    ListObj *(*new)(char *name, int extent, double mult);
+    void (*destroy)(ListObj *obj);
+    ListClass *(*init)(ListObj *obj, char *name, int extent, double mult);
+    ListClass *(*debug)(ListObj *obj, char *args);
+    ListClass *(*push)(ListObj *, char *value);
+    char *(*get)(ListObj *this, int n);
+} ListClass;
 
-List *listNew(char *name, int extent, double mult);
+ListClass *getListClass();
 
 #endif // _NODE_
