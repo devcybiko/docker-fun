@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdebug-prefix-map=${CMAKE_SOURCE_DIR}=.")
 include(pico_sdk_import.cmake)
 project(tps65 VERSION 1.0.0)
 add_executable(tps65
