@@ -46,6 +46,11 @@
     - from then on just 'cd build' and 'make' to rebuild
     - no need to `cmake` again
     
+## BUILDING FOR RPI - ERROR
+- A strange error when running `./make.sh`
+- /tmp/ccO4SZ7y.s:97: Error: selected processor does not support requested special purpose register -- `msr PRIMASK,r4'
+    - Ignore it and re-run the `./make.sh` script
+    - it will magically work again
 
 ## NOTES - using PodMan and creating Docker images
 
