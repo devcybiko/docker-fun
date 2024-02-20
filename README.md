@@ -141,3 +141,15 @@ Add the paths to your include files to the "includePath" setting. Paths are rela
 
 - inside the VM (podman container)
 - `makepico.sh`
+
+## VSCode
+- Locally - install VSCode and the "Dev Containers" Extension
+- You'll need to configure for PODMAN
+    - https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman
+- SHIFT-CMD-P -> "Dev Containers: Attach to Running Container"
+    - It will install the server component for you
+
+## Permission issues
+- If you get problems with "Error statfs no such file or directory"
+    - be sure to specify `-v /Volumes/GregsGit`
+    - podman machine init podman-machine-default -v /Volumes/GregsGit

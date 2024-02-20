@@ -1,8 +1,8 @@
 #include "../GMap.h"
 
 GEntry config[] = {
-    {"key1", "\nvalue1"},
-    {"key2", "\nvalue2"},
-    {"key3", "value3"},
+    {"key1", "FAST"},
+    {"key2", "\nMEDIUM"},
+    {"key3", "\nSLOW"},
     {NULL, NULL}
 };

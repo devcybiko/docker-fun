@@ -25,7 +25,7 @@ typedef struct GMapClass {
     GEntry *(*put)(GMap *obj, char *key, void *value);
     void *(*get)(GMap *obj, char *key);
     GEntry *(*find)(GMap *obj, char *key);
-    GMapClass *(*setMap)(GMap *obj, GEntry *entries);
+    GMapClass *(*addMap)(GMap *obj, GEntry *entries);
 } GMapClass;
 
 extern GMapClass *GMAP;

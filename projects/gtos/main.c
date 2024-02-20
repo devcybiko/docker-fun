@@ -26,20 +26,12 @@ int blinky(GCron* obj) {
 int main() {
     // Use for debugging
     // stdio_init_all();
-    printf("29\n");
     gconfig = GMAP->new("config");
-    printf("31\n");
-    GMAP->setMap(gconfig, config);
-    printf("33\n");
+    GMAP->addMap(gconfig, config);
 
-    GCRON->new("fast", 250, blinky, (void *)"key3");
-    printf("36\n");
-
-    GCRON->new("\nmedium\n", 1000, blinky, (void *)"key1");
-    printf("39\n");
-
-    GCRON->new("\nslow\n", 2000, blinky, (void *)"key2");
-    printf("42\n");
+    GCRON->new("fast", 250, blinky, (void *)"key1");
+    GCRON->new("\nmedium\n", 1000, blinky, (void *)"key2");
+    GCRON->new("\nslow\n", 2000, blinky, (void *)"key3");
 
     while (true) {
         GCRON->pump();

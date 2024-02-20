@@ -45,9 +45,9 @@ static GEntry *find(GMap *this, char *key)
     return NULL;
 }
 
-static GEntry *setMap(GMap *this, GEntry *entries)
+static GEntry *addMap(GMap *this, GEntry *entries)
 {
-    DEBUG("    > setMap\n");
+    DEBUG("    > addMap\n");
     for(int i=0; entries[i].key; i++) {
     printf("52 %s\n", entries[i].key);
         GEntry entry = entries[i];
@@ -90,7 +90,7 @@ static GMapClass _GMAP = {
     .put = put,
     .get = get,
     .find = find,
-    .setMap = setMap,
+    .addMap = addMap,
 };
 
 GMapClass *GMAP = &_GMAP;
