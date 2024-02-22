@@ -1,5 +1,5 @@
 /*
- * oop-test for Raspberry Pi Pico
+ * gtos for Raspberry Pi Pico
  *
  * @version     1.0.0
  * @author      <YOU>
@@ -7,8 +7,8 @@
  * @licence     MIT
  *
  */
-#ifndef _oop-test_MAIN_HEADER_
-#define _oop-test_MAIN_HEADER_
+#ifndef _gtos_MAIN_HEADER_
+#define _gtos_MAIN_HEADER_
 
 /*
  * C HEADERS
@@ -30,4 +30,4 @@
 #include "hardware/adc.h"
 #include "hardware/uart.h"
 
-#endif // _oop-test_MAIN_HEADER_
+#endif // _gtos_MAIN_HEADER_

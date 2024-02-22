@@ -8,3 +8,4 @@ node_modules/
 *.jnk
 .DS_Store
 build/
+*.o

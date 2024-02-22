@@ -1,27 +1,40 @@
-#include "Object.h"
-#include "List.h"
-#include "Node.h"
+/*
+ * gtos for Raspberry Pi Pico
+ *
+ * @version     1.0.0
+ * @author      <YOU>
+ * @copyright   2024
+ * @licence     MIT
+ *
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include "GList.h"
+#include "GCron.h"
+#include "GMap.h"
+#include "config.h"
+
+ // testprogram
+GMap *gconfig;
+
+int fast_counter = 0;
+int blinky(GCronEntry* obj) {
+    printf("%s\n", (char *) _(gconfig)->get((char *)obj->context));
+    return 0;
+}
 
 int main() {
-    DEBUG("> main\n");
-    ObjectClass *Obj = getObjectClass();
-    Object *obj = Obj->new("greg");
-    Obj->debug(obj, "wowsers")->destroy(obj);
+    // Use for debugging
+    // stdio_init_all();
+    gconfig = GMap$->new("config");
+    _(gconfig)->putEntries(config);
+    GCron *cron = GCron$->new("crontab");
+    _(cron)->debug("crontab")->add("fast", 250, blinky, "key1");
+    _(cron)->debug("crontab")->add("\nmedium\n", 1000, blinky, (void *)"key2");
+    _(cron)->debug("crontab")->add("\nslow\n", 2000, blinky, (void *)"key3");
 
-    ListClass *List = getListClass();
-    ListObj *list = List->new("smith", 10, 0);
-    List->debug(list, "list!");
-    for(int i=0; i<20; i++) {
-        char s[100];
-        sprintf(s, "%d", i);
-        printf("%d, %s\n", i, s);
-        List->push(list, strdup(s));
+    while (true) {
+        cron->class->pump();
     }
-    List->debug(list, "list!");
-    
-    NodeClass *Node = getNodeClass();
-    NodeObj *node = Node->new("lee", NULL);
-    Node->debug(node, "node!");
-
-    DEBUG("< main\n");
+    return 0;
 }

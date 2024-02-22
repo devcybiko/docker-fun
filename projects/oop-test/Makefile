@@ -1,7 +1,9 @@
 
-CPPFLAGS = -Wno-macro-redefined -Wno-int-to-void-pointer-cast -Wno-unused-value -Werror
+CPPFLAGS = -Wno-macro-redefined -Wno-int-to-void-pointer-cast -Wno-unused-value\
+		   -Wno-incompatible-pointer-types -Wno-void-pointer-to-int-cast\
+		   -Wno-discarded-qualifiers
 # The final executable file
-main: main.o Object.o List.o Node.o
+main: GObj.o GList.o GTimer.o GMap.o GCron.o GTimer.o main.o 
 #	gcc -o main main.o Object.o
 
 # Compile main.c into main.o
@@ -17,4 +19,4 @@ main: main.o Object.o List.o Node.o
 
 # Clean up the build
 clean:
-	rm -f main main.o Object.o List.o Node.o
+	rm -f GObj.o GList.o GTimer.o GMap.o GCron.o GTimer.o main.o 
