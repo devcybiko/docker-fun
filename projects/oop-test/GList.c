@@ -5,7 +5,7 @@ static GList *new(char *name, int extent, double mult)
     DEBUG("> GList.new %s\n", name);
     GList *this = NEW(GList);
     this->class = GList$;
-    this->super = GObj$;
+    this->super = GListSuper$;
     _(this)->init(name, extent, mult);
     DEBUG("< GList.new %s\n", name);
     return this;
@@ -85,7 +85,7 @@ static GListClass *destroy()
     DEBUG("< GList.destroy\n");
 }
 
-static GListClass _class = {
+const GListClass _GList$ = {
     .new = new,
     .init = init,
     .destroy = destroy,
@@ -94,4 +94,5 @@ static GListClass _class = {
     .get = get
 };
 
-GListClass *GList$ = &_class;
+GListClass *GList$ = &_GList$;
+GObjClass *GListSuper$ = &_GObj$;

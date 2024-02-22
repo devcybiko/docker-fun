@@ -40,4 +40,4 @@ const GObjClass _GObj$ = {
     .debug = debug,
 };
 
-const GObjClass *GObj$ = &_GObj$;
+GObjClass *GObj$ = &_GObj$;

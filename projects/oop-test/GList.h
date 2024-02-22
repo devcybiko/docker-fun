@@ -3,28 +3,21 @@
 
 #include "GObj.h"
 
-typedef struct GListClass GListClass;
+#define GList_MEMBERS(Obj, SuperObj) \
+    void **array; \
+    int extent; \
+    int size; \
+    double mult; \
 
-typedef struct GList {
-    GNAME name;
-    GListClass *class;
-    GObjClass *super;
-    void **array;
-    int extent;
-    int size;
-    double mult;
-} GList;
+#define GList_CONSTRUCTOR(Obj, SuperObj) \
+    Obj *(*new)(char *name, int extent, double mult); \
+    CLASS_NAME(Obj) *(*init)(char *name, int extent, double mult); 
 
-typedef struct GListClass {
-    const GObjClass *super;
-    GList *(*new)(char *name, int extent, double mult);
-    void (*destroy)();
-    GListClass *(*init)( char *name, int extent, double mult);
-    GListClass *(*debug)( char *args);
-    GListClass *(*push)(void *value);
+#define GList_METHODS(Obj, SuperObj) \
+    GListClass *(*push)(void *value); \
     void *(*get)(int n);
-} GListClass;
 
-extern GListClass *GList$;
+
+CLASS(GList, GObj)
 
 #endif // __LIST__

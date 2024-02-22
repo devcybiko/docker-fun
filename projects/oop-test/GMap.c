@@ -99,7 +99,7 @@ static GEntry *put(char *key, void *value)
     return entry;
 }
 
-static GMapClass _class = {
+const GMapClass _GMap$ = {
     .new = new,
     .init = init,
     .destroy = destroy,
@@ -110,4 +110,5 @@ static GMapClass _class = {
     .putEntries = putEntries,
 };
 
-GMapClass *GMap$ = &_class;
+GMapClass *GMap$ = &_GMap$;
+GObjClass *GMapSuper$ = &_GObj$;

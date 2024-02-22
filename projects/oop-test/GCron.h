@@ -4,8 +4,6 @@
 #include "GObj.h"
 #include "GList.h"
 
-typedef struct GCronClass GCronClass;
-
 #define GCRON_DEACTIVATED 0x01
 
 typedef struct GCronEntry
@@ -20,25 +18,17 @@ typedef struct GCronEntry
     void *context;
 } GCronEntry;
 
-typedef struct GCron
-{
-    GNAME name;
-    GCronClass *class;
-    GObjClass *super;
+#define GCron_MEMBERS(Obj, SuperObj) \
     GList *list;
-} GCron;
 
-typedef struct GCronClass
-{
-    GCron *(*new)(char *name);
+#define GCron_CONSTRUCTOR(Obj, SuperObj) \
+    GCron *(*new)(char *name); \
     GCronClass *(*init)(char *name);
-    void (*destroy)();
-    GCronClass *(*debug)(char *args);
-    GCronClass *(*pump)();
-    GCronClass *(*add)(char *name, int msRepeat, int (*callback)(), void *context);
-} GCronClass;
 
-extern GCronClass *GCron$;
-extern GObjClass *GCronSuper$;
+#define GCron_METHODS(Obj, SuperObj) \
+    GCronClass *(*pump)(); \
+    GCronClass *(*add)(char *name, int msRepeat, int (*callback)(), void *context); \
+
+CLASS(GCron, GObj)
 
 #endif // __CRON__

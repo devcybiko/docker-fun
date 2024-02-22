@@ -94,7 +94,7 @@ static GCronClass *pump()
     return _(this);
 }
 
-static GCronClass _GCron$ = {
+const GCronClass _GCron$ = {
     .new = new,
     .init = init,
     .destroy = destroy,

@@ -4,31 +4,24 @@
 #include "GObj.h"
 #include "GList.h"
 
-typedef struct GMapClass GMapClass;
-
 typedef struct GEntry {
     char *key;
     void *value;
 } GEntry;
 
-typedef struct GMap {
-    GNAME name;
-    GMapClass *class;
-    GObjClass *super;
+#define GMap_MEMBERS(Obj, SuperObj) \
     GList *list;
-} GMap;
 
-typedef struct GMapClass {
-    GMap *(*new)(char *name);
-    GMapClass *(*init)(char *name);
-    void (*destroy)();
-    GMapClass *(*debug)(char *args);
-    GMapClass *(*put)(char *key, void *value);
-    void *(*get)(char *key);
-    GEntry *(*getEntry)(char *key);
-    GMapClass *(*putEntries)(GEntry *entries);
-} GMapClass;
+#define GMap_CONSTRUCTOR(Obj, SuperObj) \
+    Obj *(*new)(char *name); \
+    CLASS_NAME(Obj) *(*init)(char *name);
 
-extern GMapClass *GMap$;
+#define GMap_METHODS(Obj, SuperObj) \
+    CLASS_NAME(Obj) *(*put)(char *key, void *value);\
+    void *(*get)(char *key);\
+    GEntry *(*getEntry)(char *key);\
+    CLASS_NAME(Obj) *(*putEntries)(GEntry *entries);
+
+CLASS(GMap, GObj)
 
 #endif // __GMAP__

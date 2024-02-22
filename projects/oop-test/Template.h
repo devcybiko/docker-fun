@@ -1,21 +1,60 @@
 #ifndef __TEMPLATE__
 #define __TEMPLATE__
 
-#include "GObj.h"
+#define CLASS_NAME(Obj) Obj##Class
+#define _CLASS_NAME(Obj) _##_CLASS##Class 
 
-typedef struct TemplateClass TemplateClass;
+#define MEMBERS(Obj, SuperObj) \
+typedef struct CLASS_NAME(Obj) CLASS_NAME(Obj); \
+typedef struct Obj { \
+    SuperObj##_MEMBERS(Obj, SuperObj) \
+    Obj##_MEMBERS(Obj, SuperObj) \
+} Obj;
 
-typedef struct Template {
-    GNAME name;
-} Template;
+#define METHODS(Obj, SuperObj) \
+typedef struct CLASS_NAME(Obj) { \
+    Obj##_CONSTRUCTOR(Obj, Obj) \
+    SuperObj##_METHODS(Obj, SuperObj) \
+    Obj##_METHODS(Obj, SuperObj) \
+} CLASS_NAME(Obj);
 
-typedef struct TemplateClass {
-    Template *(*new)(char *name, int extent, double mult);
-    void (*destroy)(Template *obj);
-    TemplateClass *(*init)(Template *obj, char *name, int extent, double mult);
-    TemplateClass *(*debug)(Template *obj, char *args);
-} TemplateClass;
+#define CLASS(Obj, SuperObj) \
+MEMBERS(Obj, SuperObj) \
+METHODS(Obj, SuperObj) \
+CONSTANTS(Obj, SuperObj)
 
-extern TemplateClass *TEMPLATE;
+#define CONSTANTS(Obj, SuperObj) \
+extern CLASS_NAME(Obj) *Obj##$; \
+extern const CLASS_NAME(Obj) _##Obj##$; \
+extern CLASS_NAME(SuperObj) *Obj##Super$;
+
+//// Root Objects
+
+#define _MEMBERS(Obj) \
+typedef struct CLASS_NAME(Obj) CLASS_NAME(Obj); \
+typedef struct Obj { \
+    Obj##_MEMBERS(Obj, Obj) \
+} Obj;
+
+#define _METHODS(Obj) \
+typedef struct CLASS_NAME(Obj) { \
+    Obj##_CONSTRUCTOR(Obj, Obj) \
+    Obj##_METHODS(Obj, Obj) \
+} CLASS_NAME(Obj);
+
+#define _CONSTANTS(Obj) \
+extern CLASS_NAME(Obj) *Obj##$; \
+extern const Obj##Class _##Obj##$;
+
+#define _CLASS(Obj) \
+_MEMBERS(Obj) \
+_METHODS(Obj) \
+_CONSTANTS(Obj)
+
+
+// _(this)->method(...) == Call Method 
+// __(this)->method(...) == Call Super Method
+#define _(Obj) (THIS=Obj, Obj->class)
+#define __(Obj) (THIS=Obj, Obj->super)
 
 #endif // __TEMPLATE__
