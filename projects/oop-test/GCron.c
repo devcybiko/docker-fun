@@ -1,7 +1,6 @@
 #include "GCron.h"
 #include "GTimer.h"
-
-extern GCronClass *GCron$;
+#include "GCronEntry.h"
 
 static GCron *new(char *name)
 {
@@ -43,29 +42,11 @@ static GCronClass *debug(char *args)
     return _(this);
 }
 
-static GCronEntry *newEntry(char *name, int msRepeat, GFunc callback, void *context)
-{
-    DEBUG("> GCron.newEntry %s\n", name);
-    GCronEntry *entry = NEW(GCronEntry);
-    entry->class = GObj$;
-    entry->super = GObj$;
-    __(entry)->init(name);
-    entry->msRepeat = msRepeat;
-    entry->msLast = GTIMER->mSecs();
-    entry->callback = callback;
-    entry->context = context;
-    DEBUG("< GCron.newEntry %s\n", name);
-    return entry;
-}
-
 static GCronClass *add(char *name, int msRepeat, int (*callback)(struct GCronEntry *), void *context)
 {
     GCron *this = THIS;
     DEBUG("> GCron.add %s\n", name);
-    GCronEntry *entry = newEntry(name, msRepeat, callback, context);
-    THIS=this->list;
-    printf("63, %p\n", this->list);
-    THIS=this;
+    GCronEntry *entry = GCronEntry$->new(name, msRepeat, callback, context);
     _(this->list)->push(entry);
     DEBUG("< GCron.add %s\n", name);
     return _(this);

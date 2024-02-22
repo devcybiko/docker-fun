@@ -1,5 +1,5 @@
-#ifndef __OBJECT__
-#define __OBJECT__
+#ifndef __GObj__
+#define __GObj__
 
 #include "GDefines.h"
 
@@ -18,4 +18,4 @@
 
 _CLASS(GObj)
 
-#endif // __OBJECT__
+#endif // __GObj__

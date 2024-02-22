@@ -1,5 +1,5 @@
-#ifndef __LIST__
-#define __LIST__
+#ifndef __GList__
+#define __GList__
 
 #include "GObj.h"
 
@@ -7,7 +7,7 @@
     void **array; \
     int extent; \
     int size; \
-    double mult; \
+    double mult;
 
 #define GList_CONSTRUCTOR(Obj, SuperObj) \
     Obj *(*new)(char *name, int extent, double mult); \
@@ -17,7 +17,6 @@
     GListClass *(*push)(void *value); \
     void *(*get)(int n);
 
-
 CLASS(GList, GObj)
 
-#endif // __LIST__
+#endif // __GList__

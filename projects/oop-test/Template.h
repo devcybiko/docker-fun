@@ -54,6 +54,15 @@ _CONSTANTS(Obj)
 
 // _(this)->method(...) == Call Method 
 // __(this)->method(...) == Call Super Method
+
+#define START_LINKAGES(Obj, SuperObj) const CLASS_NAME(Obj) _##Obj##$ = {
+#define LINKAGE(Func) . Func = Func,
+#define END_LINKAGES(Obj, SuperObj) \
+}; \
+CLASS_NAME(Obj) *Obj##$ = &_##Obj##$; \
+CLASS_NAME(SuperObj) *Obj##Super$ = &_##SuperObj##$;
+
+// CALL Directives
 #define _(Obj) (THIS=Obj, Obj->class)
 #define __(Obj) (THIS=Obj, Obj->super)
 

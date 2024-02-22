@@ -3,20 +3,9 @@
 
 #include "GObj.h"
 #include "GList.h"
+#include "GCronEntry.h"
 
 #define GCRON_DEACTIVATED 0x01
-
-typedef struct GCronEntry
-{
-    GNAME name;
-    GObjClass *class;
-    GObjClass *super;
-    int (*callback)(struct GCronEntry *);
-    int msRepeat;
-    int msLast;
-    int flags;
-    void *context;
-} GCronEntry;
 
 #define GCron_MEMBERS(Obj, SuperObj) \
     GList *list;
@@ -27,7 +16,7 @@ typedef struct GCronEntry
 
 #define GCron_METHODS(Obj, SuperObj) \
     GCronClass *(*pump)(); \
-    GCronClass *(*add)(char *name, int msRepeat, int (*callback)(), void *context); \
+    GCronClass *(*add)(char *name, int msRepeat, int (*callback)(), void *context);
 
 CLASS(GCron, GObj)
 
