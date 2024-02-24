@@ -1,6 +1,10 @@
 #include "GList.h"
 
-EXTENDS(GObj)
+static GObj *_super = NULL;
+#define EXTENDS(Obj) Obj *_super = NULL;
+#define SUPER (THIS=this, _super)
+#define INHERIT(Obj) if (!_super) super = Obj##_new("super");
+
 
 static void push(void *value)
 {
@@ -75,7 +79,7 @@ static GList *init(char *name, int extent, double mult)
 
 GList *GList_new(char *name, int extent, double mult)
 {
-    INHERIT_FROM(GObj);
+    if (!_super) _super = GObj_new("super");
     GList *this = NEW(GList);
     this->init = init;
     return _(this)->init(name, extent, mult);
