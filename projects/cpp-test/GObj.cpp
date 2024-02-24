@@ -1,7 +1,4 @@
-#include <iostream>
 #include "GObj.h"
-
-using namespace std;
 
 GObj::GObj(string name)
 {
@@ -20,5 +17,5 @@ string GObj::toString()
 
 void GObj::debug(string message)
 {
-    cout << message << endl;
+    cout << this->name +": " + message << endl;
 }

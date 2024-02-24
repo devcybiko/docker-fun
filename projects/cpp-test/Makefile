@@ -1,8 +1,10 @@
-CPPFLAGS = -g -Wall -std=c++11
+CPPFLAGS = -g -Wall -std=c++11 -fpermissive -w
 
-main: GObj.o GList.o main.o 
-	g++ -o main main.o GObj.o GList.o $(CPPFLAGS)
+OBJECTS = main.o GObj.o GList.o GMap.o GCronEntry.o GTimer.o GCron.o
+
+main: $(OBJECTS)
+	g++ -o main $(OBJECTS) $(CPPFLAGS)
 
 # Clean up the build
 clean:
-	rm -f GObj.o main.o GList.o main
+	rm -f $(OBJECTS) main

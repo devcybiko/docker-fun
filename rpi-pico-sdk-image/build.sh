@@ -11,5 +11,5 @@ set -e
 # yes | podman image prune
 
 podman build -t rpi-pico-sdk-image .
-podman run -p 8080:8080 --name RPi-Pico-SDK -it rpi-pico-sdk-image
+podman run -p 8443:8443 --name RPi-Pico-SDK rpi-pico-sdk-image
 podman commit RPi-Pico-SDK rpi-pico-sdk-container

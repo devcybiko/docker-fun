@@ -38,13 +38,13 @@ void *GList::get(int n)
 void GList::debug(std::string message)
 {
     GObj::debug(message);
-    printf(".list_array: %p\n", this->array);
-    printf(".list_extent: %d\n", this->extent);
-    printf(".list_size: %d\n", this->size);
-    printf(".list_mult: %f\n", this->mult);
+    cout << ".list_array: " << this->array << endl;
+    cout << ".list_extent: " << this->extent << endl;
+    cout << ".list_size: " << this->size << endl;
+    cout << ".list_mult: " << this->mult << endl;
     for (int i = 0; i < this->size; i++)
     {
-        printf("... %d %p\n", i, this->get(i));
+        cout << "... " << i << " " << this->get(i) << endl;
     }
 }
 

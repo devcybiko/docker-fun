@@ -5,10 +5,10 @@ FROM debian
 RUN echo "...Get Some Missing Commands..."
 RUN apt-get update
 RUN apt-get install -y sudo
-RUN apt install -y python3
-RUN apt install -y python3-pip 
-RUN apt -y install vim
-RUN apt -y install curl
+RUN apt-get install -y python3
+RUN apt-get install -y python3-pip 
+RUN apt-get install -y vim
+RUN apt-get install -y curl
 
 
 # Copy the script to the container
@@ -31,3 +31,5 @@ RUN chmod +x /usr/local/bin/login.sh
 
 # Command to execute the script when the container starts
 CMD ["/usr/local/bin/install.sh"]
+# CMD ["/bin/bash"]
+
