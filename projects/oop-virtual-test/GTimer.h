@@ -1,13 +1,13 @@
 #ifndef __Timer__
 #define __Timer__
 
-#include <stdint.h>
+#include "GDefines.h"
 
-typedef struct  {
+typedef struct _GTimer {
     uint64_t (*uSecs)();
     uint32_t (*mSecs)();
-} GTimerClass;
+} _GTimer;
 
-extern GTimerClass *GTIMER;
+extern _GTimer GTimer;
 
 #endif // __Timer__

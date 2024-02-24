@@ -1,14 +1,13 @@
 #include "GTimer.h"
 
-#ifdef PICO
+#ifdef __PICO__
 #include "pico/GTimer.c"
-#else // linux?
+#endif
+#ifdef __LINUX__
 #include "linux/GTimer.c"
 #endif
 
-static GTimerClass _GTIMER = {
+_GTimer GTimer = {
     .uSecs = uSecs,
     .mSecs = mSecs,
 };
-
-GTimerClass *GTIMER = &_GTIMER;

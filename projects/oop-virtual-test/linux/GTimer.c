@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdint.h>
 
 uint64_t uSecs() {
     struct timespec tp;

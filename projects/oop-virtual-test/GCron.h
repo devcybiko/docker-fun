@@ -15,7 +15,7 @@
     GCronClass *(*init)(char *name);
 
 #define GCron_METHODS(Obj, SuperObj) \
-    GCronClass *(*pump)(); \
+    METHOD(int, pump)(); \
     GCronClass *(*add)(char *name, int msRepeat, int (*callback)(), void *context);
 
 CLASS(GCron, GObj)

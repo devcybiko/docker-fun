@@ -23,14 +23,14 @@ static GCron *init(char *name)
     return _(this);
 }
 
-static void destroy()
+static void delete()
 {
     GCron *this = THIS;
-    DEBUG("> GCron.destroy %s\n", this->name);
-    _(this->list)->destroy();
-    __(this)->destroy();
+    DEBUG("> GCron.delete %s\n", this->name);
+    _(this->list)->delete();
+    __(this)->delete();
     free(this);
-    DEBUG("< GCron.destroy %s\n", this->name);
+    DEBUG("< GCron.delete %s\n", this->name);
 }
 
 static GCronClass *debug(char *args)
@@ -52,17 +52,19 @@ static GCronClass *add(char *name, int msRepeat, int (*callback)(struct GCronEnt
     return _(this);
 }
 
-static GCronClass *pump()
+static int pump()
 {
     GCron *this = THIS;
-    DEBUG("> GCron.pump %s\n", this->name);
-    int now = GTIMER->mSecs(); // get current time in mSecs
+    // returns the number of entries that were processed
+    // if the number is 0, it means that no entries were processed
+    int count = 0;
+    int now = GTimer.mSecs();
     for (int i = 0; i < this->list->size; i++)
     {
         GCronEntry *entry = (GCronEntry *) _(this->list)->get(i);
         if (entry && !(entry->flags & GCRON_DEACTIVATED))
         {
-            // DEBUG("now=%d, msLast=%d, msRepeat=%d, %d\n", now, entry->msLast, entry->msRepeat, entry->msLast + entry->msRepeat < now);
+            count++;
             if (entry->msLast + entry->msRepeat < now)
             {
                 int newFlags = entry->callback(entry);
@@ -71,14 +73,13 @@ static GCronClass *pump()
             }
         }
     }
-    DEBUG("< GCron.pump %s\n", this->name);
-    return _(this);
+    return count;
 }
 
 const GCronClass _GCron$ = {
     .new = new,
     .init = init,
-    .destroy = destroy,
+    .delete = delete,
     .debug = debug,
     .pump = pump,
     .add = add,

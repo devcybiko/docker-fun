@@ -9,6 +9,7 @@ RUN apt-get install -y python3
 RUN apt-get install -y python3-pip 
 RUN apt-get install -y vim
 RUN apt-get install -y curl
+RUN apt-get install -y indent
 
 
 # Copy the script to the container

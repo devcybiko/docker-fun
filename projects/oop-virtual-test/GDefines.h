@@ -1,10 +1,13 @@
 #ifndef __GDEFINES__
 #define __GDEFINES__
 
+#define __LINUX__
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "Template.h"
 
@@ -13,10 +16,9 @@
 #define CALLOC(TYPE, n) (TYPE *) calloc(sizeof(TYPE), n)
 #define REALLOC(TYPE, p, n) (TYPE *) realloc(p, sizeof(TYPE) * n)
 
-#define DEBUG printf
+#define DEBUG // printf
 
 typedef char GNAME[16];
-typedef int (*GFunc)();
 
 extern void *THIS;
 extern void *SUPER;

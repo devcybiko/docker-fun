@@ -30,14 +30,14 @@ static GMapClass *debug(char *args)
     return _(this);
 }
 
-static void destroy()
+static void delete()
 {
     GMap *this = THIS;
-    DEBUG("> GMap.destroy %s\n", this->name);
-    __(this)->destroy();
-    _(this->list)->destroy();
+    DEBUG("> GMap.delete %s\n", this->name);
+    __(this)->delete();
+    _(this->list)->delete();
     free(this);
-    DEBUG("< GMap.destroy\n");
+    DEBUG("< GMap.delete\n");
 }
 
 static GEntry *getEntry(char *key)
@@ -102,7 +102,7 @@ static GEntry *put(char *key, void *value)
 const GMapClass _GMap$ = {
     .new = new,
     .init = init,
-    .destroy = destroy,
+    .delete = delete,
     .debug = debug,
     .put = put,
     .get = get,

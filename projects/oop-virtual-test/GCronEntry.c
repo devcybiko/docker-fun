@@ -1,7 +1,7 @@
 #include "GCronEntry.h"
 #include "GTimer.h"
 
-static GCronEntry *new(char *name, int msRepeat, GFunc callback, void *context)
+static GCronEntry *new(char *name, int msRepeat, int (*callback)(GCronEntry *), void *context)
 {
     DEBUG("> GCronEntry.new %s\n", name);
     GCronEntry *this = NEW(GCronEntry);
@@ -12,26 +12,26 @@ static GCronEntry *new(char *name, int msRepeat, GFunc callback, void *context)
     return this;
 }
 
-static GCronEntry *init(char *name, int msRepeat, GFunc callback, void *context)
+static GCronEntry *init(char *name, int msRepeat, int(*callback(GCronEntry *)), void *context)
 {
     GCronEntry *this = THIS;
     DEBUG("> GCronEntry.init %s\n", name);
     __(this)->init(name);
     this->msRepeat = msRepeat;
-    this->msLast = GTIMER->mSecs();
+    this->msLast = GTimer.mSecs();
     this->callback = callback;
     this->context = context;
     DEBUG("< GCronEntry.init %s\n", name);
     return _(this);
 }
 
-static void destroy()
+static void delete()
 {
     GCronEntry *this = THIS;
-    DEBUG("> GCronEntry.destroy %s\n", this->name);
-    __(this)->destroy();
+    DEBUG("> GCronEntry.delete %s\n", this->name);
+    __(this)->delete();
     free(this);
-    DEBUG("< GCronEntry.destroy %s\n", this->name);
+    DEBUG("< GCronEntry.delete %s\n", this->name);
 }
 
 static GCronEntryClass *debug(char *args)
@@ -46,6 +46,6 @@ static GCronEntryClass *debug(char *args)
 START_LINKAGES(GCronEntry, GObj)
 LINKAGE(new)
 LINKAGE(init)
-LINKAGE(destroy)
+LINKAGE(delete)
 LINKAGE(debug)
 END_LINKAGES(GCronEntry, GObj)

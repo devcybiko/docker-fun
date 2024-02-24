@@ -75,20 +75,20 @@ static GListClass *debug(char *args)
     return _(this);
 }
 
-static GListClass *destroy()
+static GListClass *delete()
 {
     GList *this = THIS;
-    DEBUG("> GList.destroy\n");
-    __(this)->destroy();
+    DEBUG("> GList.delete\n");
+    __(this)->delete();
     free(this->array);
     free(this);
-    DEBUG("< GList.destroy\n");
+    DEBUG("< GList.delete\n");
 }
 
 const GListClass _GList$ = {
     .new = new,
     .init = init,
-    .destroy = destroy,
+    .delete = delete,
     .debug = debug,
     .push = push,
     .get = get

@@ -3,6 +3,7 @@
 
 #define CLASS_NAME(Obj) Obj##Class
 #define _CLASS_NAME(Obj) _##_CLASS##Class 
+#define METHOD(TYPE, NAME) TYPE(*NAME)
 
 #define MEMBERS(Obj, SuperObj) \
 typedef struct CLASS_NAME(Obj) CLASS_NAME(Obj); \

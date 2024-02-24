@@ -11,8 +11,8 @@
     void *context;
 
 #define GCronEntry_CONSTRUCTOR(Obj, SuperObj) \
-    GCronEntry *(*new)(char *name, int msRepeat, GFunc callback, void *context); \
-    GCronEntryClass *(*init)(char *name, int msRepeat, GFunc callback, void *context);
+    GCronEntry *(*new)(char *name, int msRepeat, int (*callback)(), void *context); \
+    GCronEntryClass *(*init)(char *name, int msRepeat, int (*callback)(), void *context);
 
 #define GCronEntry_METHODS(Obj, SuperObj) \
 

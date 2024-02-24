@@ -20,11 +20,11 @@ static GObjClass *init(char *name) {
     return _(this);
 }
 
-static void destroy() {
+static void delete() {
     GObj *this = THIS;
-    DEBUG("  > GObjDestroy %s\n", this->name);
+    DEBUG("  > GObjDelete %s\n", this->name);
     // nothing to do here
-    DEBUG("  < GObjDestroy\n");
+    DEBUG("  < GObjDelete\n");
 }
 
 static GObjClass *debug(char *args) {
@@ -33,11 +33,17 @@ static GObjClass *debug(char *args) {
     return _(this);
 }
 
+static GObjClass *toString() {
+    GObj *this = THIS;
+    return this->name;
+}
+
 const GObjClass _GObj$ = {
     .new = new,
     .init = init,
-    .destroy = destroy,
+    .delete = delete,
     .debug = debug,
+    .toString = toString
 };
 
 GObjClass *GObj$ = &_GObj$;
