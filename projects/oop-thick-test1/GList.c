@@ -1,10 +1,6 @@
 #include "GList.h"
 
 static GObj *_super = NULL;
-#define EXTENDS(Obj) Obj *_super = NULL;
-#define SUPER (THIS=this, _super)
-#define INHERIT(Obj) if (!_super) super = Obj##_new("super");
-
 
 static void push(void *value)
 {
