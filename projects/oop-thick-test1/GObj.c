@@ -17,13 +17,15 @@ static char *toString()
 static void debug(char *message)
 {
     GObj *this = THIS;
-    printf("GObj: %s: %s\n", this->name, message);
+    printf("%s says \"%s\"\n", this->name, message);
 }
 
 static GObj *init(char *name)
 {
     GObj *this = THIS;
+    printf(">>> GObj.init %s\n", name);
     strncpy(this->name, name, sizeof(this->name) - 1);
+    this->name[sizeof(this->name) - 1] = '\0'; // strncpy does not null terminate
     this->delete = delete;
     this->debug = debug;
     this->toString = toString;

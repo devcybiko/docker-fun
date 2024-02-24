@@ -12,7 +12,7 @@ typedef struct GObj {
     char name[16];
 
     // methods
-    GObj *(*init)(char *name);
+    GObj *(*init)();
     GObj *(*delete)();
     void (*debug)(char *message);
     char *(*toString)();

@@ -10,22 +10,20 @@ typedef struct GList {
     char name[16];
 
     // methods
-    GObj *(*delete)();
+    GList *(*init)();
+    GList *(*delete)();
     void (*debug)(char *message);
     char *(*toString)();
 
+    // new members
     void **array;
     int extent;
     int size;
     double mult;
 
-    // GList(std::string name, int extent, double mult);
-    // ~GList();
-    // void debug(std::string message);
-    // std::string toString();
-
-    // GList *push(void *value);
-    // void *get(int n);
+    // new methods
+    void (*push)(void *value);
+    void *(*get)(int n);
 } GList;
 
 GList *GList_new(char *name, int extent, double mult);

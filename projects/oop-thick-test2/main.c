@@ -45,10 +45,10 @@ int main(int argc, char const *argv[])
     printf("%p\n", list);
     printf("%p\n", list->toString);
     printf("%s\n", _(list)->toString());
-    // list->push("zero");
-    // list->push("one");
-    // list->push("two");
-    // list->debug("GList Test");
+    list->push("zero");
+    list->push("one");
+    list->push("two");
+    _(list)->debug("GList Test");
     // printf("%s\n", (char *)list->get(0));
     // printf("%s\n", (char *)list->get(1));
     // printf("%s\n", (char *)list->get(2));

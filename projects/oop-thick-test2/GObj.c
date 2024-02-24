@@ -14,16 +14,18 @@ static char *toString()
     return this->name;
 }
 
-
 static void debug(char *message)
 {
     GObj *this = THIS;
-    printf("GObj: %s: %s\n", this->name, message);
+    printf("%s says \"%s\"\n", this->name, message);
 }
 
-GObj *GObj_init(GObj *this, char *name)
+static GObj *init(char *name)
 {
+    GObj *this = THIS;
+    printf(">>> GObj.init %s\n", name);
     strncpy(this->name, name, sizeof(this->name) - 1);
+    this->name[sizeof(this->name) - 1] = '\0'; // strncpy does not null terminate
     this->delete = delete;
     this->debug = debug;
     this->toString = toString;
@@ -32,5 +34,6 @@ GObj *GObj_init(GObj *this, char *name)
 
 GObj *GObj_new(char *name) {
     GObj *this = NEW(GObj);
-    return GObj_init(this, name);
+    this->init = init;
+    return _(this)->init(name);
 }
