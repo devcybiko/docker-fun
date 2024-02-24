@@ -19,4 +19,8 @@ typedef struct Obj { \
     Obj##_CLASS \
 } Obj;
 
+#define EXTENDS(Obj) Obj *_super = NULL;
+#define SUPER (THIS=this, _super)
+#define INHERIT_FROM(Obj) if (!_super) _super = Obj##_new("super");
+
 #endif // __Template__

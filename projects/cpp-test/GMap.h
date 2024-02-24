@@ -5,13 +5,16 @@
 #include "GList.h"
 
 typedef struct GEntry {
-    char *key;
+    std::string key;
     void *value;
 } GEntry;
 
-#define GMap_CLASS \
+class GMap : public GObj
+{
+public:
     GList *list;
 
+    GMap(std::string name); 
     ~GMap();
     void debug(std::string message);
     std::string toString();
@@ -21,7 +24,5 @@ typedef struct GEntry {
     GEntry *getEntry(std::string key);
     void putEntries(GEntry *entries);
 };
-
-GMap(std::string name); 
 
 #endif // __GMap__
