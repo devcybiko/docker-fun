@@ -1,0 +1,3 @@
+#define DEFINE_CLASS_ID(OBJ, ID) #define OBJ##_NUM ID
+DEFINE_CLASS_ID(GObj, 123)
+
