@@ -4,14 +4,15 @@
 #include "Template.h"
 #include "GDefines.h"
 
-extern void *THIS; // this
+extern void *_THIS; // this
+extern void *_this(); // _this
 
 #define GObj_CLASS \
     char name[16];\
-    GObj *(*init)();\
-    GObj *(*delete)();\
-    void (*debug)(char *message);\
-    char *(*toString)();
+    METHOD(GObj *, init)();\
+    METHOD(GObj *, delete)();\
+    METHOD(void , debug)(char *message);\
+    METHOD(char *, toString)();
 
 ROOT_CLASS(GObj)
 

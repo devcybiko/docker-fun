@@ -4,7 +4,8 @@ EXTENDS(GObj)
 
 static void push(void *value)
 {
-    GList *this = THIS;
+    GList *this = THIS("GList.push");
+    printf("GList.push = %p\n", this->array);
     if (this->size == this->extent)
     {
         this->extent = this->extent * this->mult;
@@ -15,7 +16,7 @@ static void push(void *value)
 
 static void *get(int n)
 {
-    GList *this = THIS;
+    GList *this = THIS("GList.get");
     if (n < 0 || n >= this->size)
         return NULL;
     return this->array[n];
@@ -23,8 +24,8 @@ static void *get(int n)
 
 static void debug(char *message)
 {
-    GList *this = THIS;
-    SUPER->debug(message);
+    GList *this = THIS("GList.debug");
+    SUPER.debug(message);
     printf("...name: %s\n", this->name);
     printf("...this: %p\n", this);
     printf("...array: %p\n", this->array);
@@ -33,13 +34,13 @@ static void debug(char *message)
     printf("...mult: %f\n", this->mult);
     for (int i = 0; i < this->size; i++)
     {
-        printf("... %d: %s\n", i, this->get(i));
+        printf("... %d: %s\n", i, _(this).get(i));
     }
 }
 
 static void delete()
 {
-    GList *this = THIS;
+    GList *this = THIS("GList.delete");
     free(this->array); // WARNING: memory leak if you don't delete the elements first
     free(this);
 }
@@ -48,15 +49,15 @@ static char TO_STRING_BUFF[100] = {};
 
 static char *toString()
 {
-    GList *this = THIS;
+    GList *this = THIS("GList.toString");
     sprintf(TO_STRING_BUFF, "GList(%s): size=%d, extent=%d", this->name, this->size, this->extent);
     return TO_STRING_BUFF;
 }
 
 static GList *init(char *name, int extent, double mult)
 {
-    GList *this = THIS;
-    SUPER->init(name);
+    GList *this = THIS("GList.init");
+    SUPER.init(name);
     printf("GList.init ...name: %s\n", this->name);
 
     this->delete = delete;
@@ -69,7 +70,6 @@ static GList *init(char *name, int extent, double mult)
     this->extent = extent == 0 ? 8 : extent;
     this->size = 0;
     this->mult = mult == 0.0 ? 2.0 : mult;
-    _(this)->debug("GList.init");
     return this;
 }
 
@@ -78,5 +78,5 @@ GList *GList_new(char *name, int extent, double mult)
     INHERIT_FROM(GObj);
     GList *this = NEW(GList);
     this->init = init;
-    return _(this)->init(name, extent, mult);
+    return _(this).init(name, extent, mult);
 }

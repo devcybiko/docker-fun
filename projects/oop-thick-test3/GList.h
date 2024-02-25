@@ -9,8 +9,8 @@
     int size; \
     double mult; \
 \
-    void (*push)(void *value);\
-    void *(*get)(int n);
+    METHOD(void, push)(void *value);\
+    METHOD(void *, get)(int n);
 
 CLASS(GList, GObj)
 

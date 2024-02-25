@@ -24,7 +24,7 @@ static void *get(int n)
 static void debug(char *message)
 {
     GList *this = THIS;
-    SUPER->debug(message);
+    _super->debug(message);
     printf("...name: %s\n", this->name);
     printf("...this: %p\n", this);
     printf("...array: %p\n", this->array);
@@ -56,7 +56,7 @@ static char *toString()
 static GList *init(char *name, int extent, double mult)
 {
     GList *this = THIS;
-    SUPER->init(name);
+    _super->init(name);
     printf("GList.init ...name: %s\n", this->name);
 
     this->delete = delete;
