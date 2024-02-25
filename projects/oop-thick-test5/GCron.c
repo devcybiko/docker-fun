@@ -5,15 +5,14 @@
 static void debug(char *message)
 {
     GCron *this = THIS(GCron_ID, "GCron.debug");
-    printf("GCron: %s\n", message);
-    _(this->obj).debug("Gcron.obj");
+    printf("GCron(%s): %s\n", this->name, message);
     _(this->list).debug("GCron.list");
 }
 
 static GCron *add(char *name, int msRepeat, int (*callback)(GCronEntry *), void *context)
 {
     GCron *this = THIS(GCron_ID, "GCron.add");
-    GCronEntry *entry = GCronEntry_new(name, msRepeat, callback, context);
+    GCronEntry *entry = GCronEntry_new(msRepeat, callback, context);
     _(this).debug("pushing");
     _(this->list).push(entry);
     _(this->list).debug("adding... list");
@@ -44,12 +43,11 @@ static int pump()
     return count;
 }
 
-static char TO_STRING_BUFF[100] = {};
 static char *toString()
 {
     GCron *this = THIS(GCron_ID, "GCron.toString");
-    sprintf(TO_STRING_BUFF, "GCron(%s)", this->obj->name);
-    return TO_STRING_BUFF;
+    sprintf(GObj_stringbuffer, "GCron(%s)", this->name);
+    return GObj_stringbuffer;
 }
 
 static void delete()
@@ -61,15 +59,13 @@ static void delete()
         _(entry).delete();
     }
     _(this->list).delete();
-    _(this->obj).delete();
     free(this);
 }
 
 GCron *GCron_new(char *name)
 {
     GCron *this = NEW(GCron);
-    this->id = GCron_ID;
-    this->obj = GObj_new(name);
+    GObj_init(this, name, GCron_ID);
     this->list = GList_new("GCron.list", 0, 0.0);
 
     this->delete = delete;

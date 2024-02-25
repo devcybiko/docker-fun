@@ -12,13 +12,8 @@
 #define GCron_ID 0x4743726f6e
 
 CLASS(GCron)
-    int id;
-    GObj *obj;
+    GObj_CLASS
     GList *list;
-
-    METHOD(void, delete)();
-    METHOD(void , debug)(char *message);
-    METHOD(char *, toString)();
 
     METHOD(int, pump)();
     METHOD(GCron *, add)(char *, int msRepeat, int (*callback)(GCronEntry *), void *context);

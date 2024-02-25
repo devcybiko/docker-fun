@@ -1,17 +1,16 @@
 #include "GMap.h"
 
-EXTENDS(GObj)
-
 static void debug(char * message)
 {
-    GMap *this = THIS("GMap.debug");
-    SUPER.debug(message);
+    GMap *this = THIS(GMap_ID, "GMap.debug");
+    printf("GMap.debug: %s\n", message);
+    _(this->obj).debug("GMap.obj");
     _(this->list).debug("GMap.list");
 }
 
 static GEntry *getEntry(char * key)
 {
-    GMap *this = THIS("GMap.getEntry");
+    GMap *this = THIS(GMap_ID, "GMap.getEntry");
     GEntry *result = NULL;
     for (int i = 0; result == NULL && i < this->list->size; i++)
     {
@@ -33,7 +32,7 @@ static GEntry *getEntry(char * key)
 
 static void *get(char * key)
 {
-    GMap *this = THIS("GMap.get");
+    GMap *this = THIS(GMap_ID, "GMap.get");
     GEntry *entry = _(this).getEntry(key);
     if (entry)
         return entry->value;
@@ -42,7 +41,7 @@ static void *get(char * key)
 
 static void put(char * key, void *value)
 {
-    GMap *this = THIS("GMap.put");
+    GMap *this = THIS(GMap_ID, "GMap.put");
     GEntry *entry = _(this).getEntry(key);
     if (entry)
     {
@@ -57,31 +56,38 @@ static void put(char * key, void *value)
     }
 }
 
-static GMap *init(char *name)
+static char TO_STRING_BUFF[100] = {};
+static char *toString()
 {
-    GMap *this = THIS("GMap.init");
-    SUPER.init(name);
-    this->put = put;
-    this->getEntry = getEntry;
-    this->debug = debug;
-    this->get = get;
-
-    this->list = GList_new("gmap.list", 10, 1.5);
-    return this;
+    GMap *this = THIS(GList_ID, "GMap.toString");
+    sprintf(TO_STRING_BUFF, "GMap(%s): size=%d, extent=%d", this->obj->name, this->list->size, this->list->extent);
+    return TO_STRING_BUFF;
 }
 
 static void delete()
 {
-    GMap *this = THIS("GMap.delete");
+    GMap *this = THIS(GMap_ID, "GMap.delete");
+    _(this->obj).delete();
     _(this->list).delete();
     free(this);
 }
 
 GMap *GMap_new(char *name) {
-    INHERIT_FROM(GObj);
     GMap *this = NEW(GMap);
-    this->init = init;
-    return _(this).init(name);
+    this->id = GMap_ID;
+    this->obj = GObj_new(name);
+    this->list = GList_new("gmap.list", 10, 1.5);
+
+    this->debug = debug;
+    this->delete = delete;
+    this->toString = toString;
+
+    this->put = put;
+    this->getEntry = getEntry;
+    this->debug = debug;
+    this->get = get;
+
+    return this;
 }
 
 

@@ -1,0 +1,1 @@
+# Basic Objects with COMPOSITION (no inheritance) and templates and object checking

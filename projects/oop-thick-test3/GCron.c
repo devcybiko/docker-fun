@@ -34,7 +34,7 @@ static int pump()
     int now = GTimer.mSecs();
     for (int i = 0; i < this->list->size; i++)
     {
-        GCronEntry *entry = (GCronEntry *) _(this).list->get(i);
+        GCronEntry *entry = (GCronEntry *) _(this->list).get(i);
         if (entry && !(entry->flags & GCRON_DEACTIVATED))
         {
             count++;

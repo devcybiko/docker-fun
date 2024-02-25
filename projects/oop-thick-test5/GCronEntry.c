@@ -4,16 +4,14 @@
 static void delete()
 {
     GCronEntry *this = THIS(GCronEntry_ID, "GCronEntry.delete");
-    _(this->obj).delete();
     free(this);
 }
 
-static char TO_STRING_BUFF[100] = {};
 static char *toString()
 {
     GCronEntry *this = THIS(GCronEntry_ID, "GCronEntry.toString");
-    sprintf(TO_STRING_BUFF, "GCronEntry(%s): msRepeat=%d, msLast=%d", this->obj->name, this->msRepeat, this->msLast);
-    return TO_STRING_BUFF;
+    sprintf(GObj_stringbuffer, "GCronEntry(%s): msRepeat=%d, msLast=%d", this->name, this->msRepeat, this->msLast);
+    return GObj_stringbuffer;
 }
 
 static void debug(char * message)
@@ -25,10 +23,9 @@ static void debug(char * message)
     printf("context: %p\n", _(this).context);
 }
 
-GCronEntry *GCronEntry_new(char * name, int msRepeat, int (*callback)(GCronEntry *self), void *context) {
+GCronEntry *GCronEntry_new_full(char * name, int msRepeat, int (*callback)(GCronEntry *self), void *context) {
     GCronEntry *this = NEW(GCronEntry);
-    this->id = GCronEntry_ID;
-    this->obj = GObj_new(name);
+    GObj_init(this, name, GCronEntry_ID);
     this->msRepeat = msRepeat;
     this->msLast = GTimer.mSecs();
     this->callback = callback;
@@ -41,3 +38,6 @@ GCronEntry *GCronEntry_new(char * name, int msRepeat, int (*callback)(GCronEntry
     return this;
 }
 
+GCronEntry *GCronEntry_new(int msRepeat, int (*callback)(GCronEntry *self), void *context) {
+    return GCronEntry_new_full("GCronEntry", msRepeat, callback, context);
+}

@@ -1,5 +1,6 @@
 #include "GObj.h"
 #include "GList.h"
+#include "GString.h"
 #include "GMap.h"
 #include "GCronEntry.h"
 #include "GCron.h"
@@ -21,7 +22,7 @@ int cronPrint(GCronEntry *entry)
 {
     Context *context = (Context *)entry->context;
     context->counter--;
-    printf("cronPrint: %s, %s, %d\n", entry->obj->name, context->message, context->counter);
+    printf("cronPrint: %s, %s, %d\n", entry->name, context->message, context->counter);
     if (context->counter == 0)
     {
         printf("\n%s deactivated\n\n", context->message);
@@ -43,17 +44,17 @@ int main(int argc, char const *argv[])
     printf("GObj Test Done\n");
 
     printf("\n%s\n", "Begin GList Test!\n");
-    GList *list = GList_new("list", 0, 0.0);
+    GList *list = GList_new();
+    list->safe = true;
     printf("%p\n", list);
-    printf("%p\n", _(list).toString);
     printf("%s\n", _(list).toString());
     _(list).push("zero");
     _(list).push("one");
     _(list).push("two");
     _(list).debug("GList Test");
-    printf("%s\n", (char *)_(list).get(0));
-    printf("%s\n", (char *)_(list).get(1));
-    printf("%s\n", (char *)_(list).get(2));
+    printf("%s\n", _(list).get(0));
+    printf("%s\n", _(list).get(1));
+    printf("%s\n", _(list).get(2));
     _(list).delete();
     printf("GList Test Done\n");
 
@@ -63,14 +64,14 @@ int main(int argc, char const *argv[])
     _(map).put("one", "uno");
     _(map).put("two", "dos");
     _(map).debug("GMap Test");
-    printf("%s\n", (char *)_(map).get("zero"));
-    printf("%s\n", (char *)_(map).get("one"));
-    printf("%s\n", (char *)_(map).get("two"));
+    printf("%s\n", _(map).get("zero"));
+    printf("%s\n", _(map).get("one"));
+    printf("%s\n", _(map).get("two"));
     _(map).delete();
     printf("GMap Test Done\n");
 
     printf("\n%s\n", "Begin GCronEntry Test!\n");
-    GCronEntry *entry = GCronEntry_new("entry", 100, NULL, NULL);
+    GCronEntry *entry = GCronEntry_new(100, NULL, NULL);
     _(entry).debug("GCronEntry Test");
 
     printf("\n%s\n", "Begin GCron Test!\n");
