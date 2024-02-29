@@ -38,21 +38,3 @@ GObj *GObj_new(char *name) {
     printf(">>> GObj.new %s\n", name);
     return GObj_init(this, name, GObj_ID);
 }
-
-void *_this(int obj_id, char *name)
-{
-    void *this = _THIS_;
-    if (this == NULL)
-    {
-        printf("ERROR: \"%s\" called with \"->\" instead of \"_(x).\" \n", name);
-        exit(1);
-    }
-    int id = ((GObj *)this)->id;
-    if (id != obj_id)
-    {
-        printf("ERROR: \"%s\" called with wrong object type (expected %x, got %x)\n", name, obj_id, id);
-        exit(1);
-    }
-    _THIS_ = NULL;
-    return this;
-}
