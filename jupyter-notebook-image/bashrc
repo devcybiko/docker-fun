@@ -1,0 +1,6 @@
+source /usr/local/bin/env.sh
+echo "Using projects directory: $projects"
+echo ""
+echo "To start the jupyter notebook server, run one of the following commands:"
+echo "jupyter notebook --ip=0.0.0.0 --allow-root"
+echo "jupyter lab --ip=0.0.0.0 --allow-root"

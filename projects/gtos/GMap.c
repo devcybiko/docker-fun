@@ -1,96 +1,110 @@
+#define TRACE_OFF
+
 #include "GMap.h"
 
-static GMapClass *debug(GMap *this, char *args)
-{
-    DEBUG("  > debug\n");
-    GOBJ->debug((GObj *) this, args);
-    DEBUG(" < debug\n");
-    return GMAP;
-}
-
-static void destroy(GMap *this)
-{
-    DEBUG("    > destroy\n");
-    GOBJ->destroy((GObj *) this);
-    free(this);
-    DEBUG("    < destroy\n");
-}
-
-static GMapClass *init(GMap *this, char *name)
-{
-    DEBUG("    > init\n");
-    GOBJ->init((GObj *) this, name);
-    DEBUG("    < init\n");
-    return GMAP;
-}
-
-static GMap *new(char *name)
-{
-    DEBUG("  > new\n");
-    GMap *this = NEW(GMap);
-    this->list = GLIST->new("list", 8, 2);
-    GMAP->init(this, name);
-    DEBUG("  < new\n");
+GMap* GMap_new() {
+    TRACE("> GMap.new\n");
+    if (GMap$.id == 0) _initClass();
+    GMap* this = NEW(GMap);
+    TRACE("this = %p\n", this);
+    this->class = &GMap$;
+    _(this).init(GMap_ID);
+    TRACE("< GMap.new %p\n", this);
     return this;
 }
 
-static GEntry *find(GMap *this, char *key)
-{
-    DEBUG("    > entry\n");
-    for(int i=0; i<this->list->size; i++) {
-        GEntry *entry = (GEntry *)GLIST->get(this->list, i);
-        if (strcmp(entry->key, key) == 0) return entry;
-    }
-    DEBUG("    < entry\n");
-    return NULL;
+static void init(GID id) {
+    GMap* this = THIS(GMap, "GMap.init");
+    TRACE("> GMap.init\n");
+    __(this).init(id);
+    this->list = GList_new_full(8, 2);
+    TRACE("< GMap.init %p\n", this);
 }
 
-static GEntry *addMap(GMap *this, GEntry *entries)
-{
-    DEBUG("    > addMap\n");
-    for(int i=0; entries[i].key; i++) {
-    printf("52 %s\n", entries[i].key);
+static void debug(char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    GMap* this = THIS(GMap, "GMap.debug");
+    TRACE("> GMap.debug %p\n", this);
+    __(this).debug(fmt, args);
+    TRACE("< GMap.debug %p\n", this);
+}
+
+static void delete() {
+    GMap* this = THIS(GMap, "GMap.delete");
+    TRACE("> GMap.delete %p\n", this);
+    _(this->list).delete();
+    __(this).delete();
+    TRACE("< GMap.delete\n");
+}
+
+static GEntry* getEntry(char* key) {
+    GMap* this = THIS(GMap, "GMap.getEntry");
+    TRACE("> GMap.getEntry %s\n", key);
+    GEntry* result = NULL;
+    for (int i = 0; result == NULL && i < this->list->size; i++) {
+        GEntry* entry = (GEntry*)_(this->list).get(i);
+        if (strcmp(entry->key, key) == 0) 
+            result = entry;
+    }
+    TRACE("< GMap.getEntry %s=%p\n", key, result);
+    return result;
+}
+
+static void putEntries(GEntry* entries) {
+    GMap* this = THIS(GMap, "GMap.putEntries");
+    TRACE("> GMap.putEntries\n");
+    for (int i = 0; entries[i].key; i++) {
         GEntry entry = entries[i];
-        GMAP->put(this, entry.key, entry.value);
+        _(this).put(entry.key, entry.value);
     }
-    DEBUG("    < entry\n");
+    TRACE("< GMap.putEntries\n");
+}
+
+static void* get(char* key) {
+    GMap* this = THIS(GMap, "GMap.get");
+    TRACE("< GMap.get %s\n", key);
+    GEntry* entry = _(this).getEntry(key);
+    if (entry)
+        return entry->value;
+    TRACE("< GMap.getEntry %s\n", key);
     return NULL;
 }
 
-static void *get(GMap *this, char *key)
-{
-    DEBUG("    > get\n");
-    GEntry *entry = GMAP->find(this, key);
-    if (entry) return entry->value;
-    DEBUG("    < get\n");
-    return NULL;
-}
-
-static GEntry *put(GMap *this, char *key, void *value)
-{
-    DEBUG("    > put\n");
-    GEntry *entry = GMAP->find(this, key);
+static void put(char* key, void* value) {
+    GMap* this = THIS(GMap, "GMap.put");
+    TRACE("> GMap.put %s\n", key);
+    GEntry* entry = _(this).getEntry(key);
+    TRACE("entry: %s=%p\n", key, entry);
     if (entry) {
         entry->value = value;
     } else {
         entry = NEW(GEntry);
+        TRACE("entry: %p\n", entry);
         entry->key = key;
+        TRACE("entry: %s=%p\n", key, entry);
         entry->value = value;
-        GLIST->push(this->list, entry);
+        TRACE("entry: %s=%s\n", key, (char *)entry->value);
+        TRACE("list: %s\n", &this->list->class->id);
+        (_THIS_=this->list, *(this->list->class)).push(entry);
+        // _(this->list).push(entry);
     }
-    DEBUG("    < put\n");
-    return entry;
+    TRACE("< GMap.put %s\n", key);
 }
 
-static GMapClass _GMAP = {
-    .new = new,
-    .init = init,
-    .destroy = destroy,
-    .debug = debug,
-    .put = put,
-    .get = get,
-    .find = find,
-    .addMap = addMap,
-};
-
-GMapClass *GMAP = &_GMAP;
+GMapClass GMap$;
+static void _initClass() {
+    TRACE("> GMap$._initClass\n");
+    memcpy(&GMap$, &GObj$, sizeof(GObj$));
+    GMap$.name = "GMap";
+    GMap$.id = GMap_ID;
+    GMap$.super = &GObj$;
+    GMap$.init = init;
+    GMap$.delete = delete;
+    GMap$.debug = debug;
+    GMap$.get = get;
+    GMap$.put = put;
+    GMap$.getEntry = getEntry;
+    GMap$.putEntries = putEntries;
+    TRACE("< GMap$._initClass\n");
+}

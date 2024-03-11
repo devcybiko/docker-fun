@@ -1,27 +1,29 @@
-#ifndef __LIST__
-#define __LIST__
+#ifndef __GList__
+#define __GList__
 
 #include "GObj.h"
 
-typedef struct GListClass GListClass;
+// echo -n "GList" | xxd -ps
+// 474c697374
+#define GList_ID 0x4c697374
 
-typedef struct GList {
-    GNAME name;
-    void **array;
-    int extent;
-    int size;
+
+#define GList_MEMBERS(Obj, SuperObj) \
+    void **array; \
+    int extent; \
+    int size; \
     double mult;
-} GList;
 
-typedef struct GListClass {
-    GList *(*new)(char *name, int extent, double mult);
-    void (*destroy)(GList *obj);
-    GListClass *(*init)(GList *obj, char *name, int extent, double mult);
-    GListClass *(*debug)(GList *obj, char *args);
-    GListClass *(*push)(GList *, void *value);
-    void *(*get)(GList *this, int n);
-} GListClass;
+#define GList_CONSTRUCTOR(Obj, SuperObj) \
+    METHOD(void, init)(int id, int extent, double mult);
 
-extern GListClass *GLIST;
+#define GList_METHODS(Obj, SuperObj) \
+    METHOD(void, push)(void *value); \
+    METHOD(void *, get)(int n);
 
-#endif // __LIST__
+CLASS(GList, GObj)
+
+extern GList* GList_new(void);
+extern GList* GList_new_full(int extent, double mult);
+
+#endif // __GList__

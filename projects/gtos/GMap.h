@@ -1,33 +1,32 @@
-#ifndef __GMAP__
-#define __GMAP__
+#ifndef __GMap__
+#define __GMap__
 
 #include "GObj.h"
 #include "GList.h"
 
-typedef struct GMapClass GMapClass;
+// echo -n "GMap" | xxd -ps
+// 474d6170
+#define GMap_ID 0x474d6170
 
 typedef struct GEntry {
     char *key;
     void *value;
 } GEntry;
 
-typedef struct GMap {
-    GNAME name;
+#define GMap_MEMBERS(Obj, SuperObj) \
     GList *list;
 
-} GMap;
+#define GMap_CONSTRUCTOR(Obj, SuperObj) \
+    METHOD(void, init)(GID id);
 
-typedef struct GMapClass {
-    GMap *(*new)(char *name);
-    void (*destroy)(GMap *obj);
-    GMapClass *(*init)(GMap *obj, char *name);
-    GMapClass *(*debug)(GMap *obj, char *args);
-    GEntry *(*put)(GMap *obj, char *key, void *value);
-    void *(*get)(GMap *obj, char *key);
-    GEntry *(*find)(GMap *obj, char *key);
-    GMapClass *(*addMap)(GMap *obj, GEntry *entries);
-} GMapClass;
+#define GMap_METHODS(Obj, SuperObj) \
+    METHOD(void, put)(char *key, void *value);\
+    METHOD(void *, get)(char *key);\
+    METHOD(GEntry *, getEntry)(char *key);\
+    METHOD(void, putEntries)(GEntry *entries);
 
-extern GMapClass *GMAP;
+CLASS(GMap, GObj)
 
-#endif // __GMAP__
+extern GMap* GMap_new();
+
+#endif // __GMap__

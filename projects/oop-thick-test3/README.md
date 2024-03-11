@@ -1,1 +1,0 @@
-# Basic Objects with inheritance, templates, and method call checking

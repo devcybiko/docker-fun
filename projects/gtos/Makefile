@@ -1,20 +1,10 @@
+CPPFLAGS = -D__LINUX__ # -g -Wall -std=c++11 -fpermissive -w 
 
-CPPFLAGS = -Wno-macro-redefined -Wno-int-to-void-pointer-cast -Wno-unused-value -Werror -Wno-incompatible-pointer-types -Wno-void-pointer-to-int-cast
-# The final executable file
-main: main.o GCron.o GList.o GObj.o GTimer.o GMap.o
-#	gcc -o main main.o Object.o
+OBJECTS = main.o Template.o GObj.o GList.o GMap.o GCronEntry.o GTimer.o GCron.o
 
-# Compile main.c into main.o
-# main.o: main.c
-# 	gcc -c main.c
-
-# # Compile Object.c into Object.o
-# Object.o: Object.c
-# 	gcc -c Object.c
-
-# Node.o: Node.c
-# 	gcc -c Node.c
+main: $(OBJECTS)
+	gcc -o main $(OBJECTS) $(CPPFLAGS)
 
 # Clean up the build
 clean:
-	rm -f main.o GCron.o GList.o GObj.o GTimer.o GMap.o
+	rm -f $(OBJECTS) main

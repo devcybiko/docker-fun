@@ -1,34 +1,34 @@
-#ifndef __OBJECT__
-#define __OBJECT__
+#ifndef __GObj__
+#define __GObj__
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#define TRACE_OFF
 
-#define NEW(TYPE) (TYPE *) malloc(sizeof(TYPE))
-#define MALLOC(TYPE, n) (TYPE *) malloc(sizeof(TYPE) * n)
-#define CALLOC(TYPE, n) (TYPE *) calloc(sizeof(TYPE), n)
-#define REALLOC(TYPE, p, n) (TYPE *) realloc(p, sizeof(TYPE) * n)
+#include "GDefines.h"
+#include "Template.h"
 
-// #define DEBUG printf
-#define DEBUG
+static void _initClass();
 
-typedef struct GObjClass GObjClass;
-typedef char GNAME[16];
-typedef int (*GFunc)();
+// echo -n "GObj" | xxd -ps
+// 474f626a
+#define GObj_ID 0x474f626a
 
-typedef struct GObj {
-    GNAME name;
-} GObj;
+typedef int GID;
 
-typedef struct GObjClass {
-    GObj *(*new)(char *name);
-    GObjClass *(*destroy)(GObj *obj);
-    GObjClass *(*init)(GObj *obj, char *name);
-    GObjClass *(*debug)(GObj *obj, char *args);
-} GObjClass;
+#define GObj_MEMBERS(Obj, SuperObj) \
+    GID id; \
+    CLASS_NAME(Obj) *class; \
 
-extern GObjClass *GOBJ;
+#define GObj_CONSTRUCTOR(Obj, SuperObj) \
+    METHOD(void, init)(int id);
 
-#endif // __OBJECT__
+#define GObj_METHODS(Obj, SuperObj) \
+    METHOD(void, delete)(void); \
+    METHOD(char *, toString)(void); \
+    METHOD(char *, format)(char *fmt, ...); \
+    METHOD(void, debug)(char *fmt, ...);
+
+ROOT_CLASS(GObj)
+
+extern GObj* GObj_new(void);
+
+#endif // __GObj__
