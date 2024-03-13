@@ -12,6 +12,7 @@ const fs = require("fs");
 const paths = require("path");
 
 let mod_name = "";
+let trace_off = true;
 
 let DEBUG = true;
 function debug() {
@@ -23,11 +24,13 @@ function die() {
 }
 
 function trace(dir, fn_name) {
+    if (trace_off) return;
     if (fn_name.startsWith("*")) fn_name = fn_name.substring(1);
     return `TRACE("${dir} ${mod_name}.${fn_name}\\n");`;
 }
 
 function assign_trace(varname) {
+    if (trace_off) return;
     return `TRACE("${varname}=%d\\n", ${varname});`;
 }
 
@@ -39,6 +42,9 @@ function weave(lines) {
     let results = [];
     let prefix, return_type, fn_name, parms, return_line;
     for (let line of lines) {
+        let lower_line = line.toLowerCase();
+        if (lower_line.includes("trace_off")) trace_off = true;
+        if (lower_line.includes("trace_on")) trace_off = false;
         let fn_matches = line.match(fn_regex);
         let return_matches = line.match(return_regex);
         if (fn_matches) {

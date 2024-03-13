@@ -11,7 +11,7 @@ RUN apt-get install -y vim
 RUN apt-get install -y curl
 RUN apt-get install -y indent
 RUN apt-get install -y nodejs
-
+RUN apt-get install -y npm
 # Copy the script to the container
 RUN echo "...copy some install scripts..."
 COPY pico_setup.sh /usr/local/bin/pico_setup.sh
