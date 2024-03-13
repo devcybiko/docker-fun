@@ -1,6 +1,6 @@
 CPPFLAGS = -D__LINUX__ # -g -Wall -std=c++11 -fpermissive -w 
 GOBJS := $(wildcard gtos/*.o)
-.SECONDARY: ### don't delete the generated .c files
+## .SECONDARY: ### don't delete the generated .c files
 
 %.c: %.gc
 	../trace-aspect-weaving/trace-weave.js $< $@
