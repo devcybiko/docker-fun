@@ -1,4 +1,4 @@
-#define TRACE_ON
+#define TRACE_OFF
 
 #include "GPVM.h"
 #include "GPTask.h"

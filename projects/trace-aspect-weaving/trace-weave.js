@@ -28,7 +28,7 @@ function trace(dir, fn_name) {
 }
 
 function assign_trace(varname) {
-    return `TRACE("${varname}=%p\\n", ${varname});`;
+    return `TRACE("${varname}=%d\\n", ${varname});`;
 }
 
 function weave(lines) {
@@ -68,8 +68,8 @@ function weave(lines) {
             if (indent === 0) {
                 // end of function
                 if (fn_name) results.push(trace("<", fn_name));
-                return_line = null;
                 if (return_line) results.push(return_line);
+                return_line = null;
             }
             results.push(line);
         } else {
