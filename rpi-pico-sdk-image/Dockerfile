@@ -10,7 +10,7 @@ RUN apt-get install -y python3-pip
 RUN apt-get install -y vim
 RUN apt-get install -y curl
 RUN apt-get install -y indent
-
+RUN apt-get install -y nodejs
 
 # Copy the script to the container
 RUN echo "...copy some install scripts..."

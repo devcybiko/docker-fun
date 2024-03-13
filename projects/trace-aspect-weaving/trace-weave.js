@@ -9,7 +9,9 @@ const gprocs = glstools.procs;
 const gstrings = glstools.strings;
 const gfiles = glstools.files;
 const fs = require("fs");
-const path = require("path");
+const paths = require("path");
+
+let mod_name = "";
 
 let DEBUG = true;
 function debug() {
@@ -22,11 +24,11 @@ function die() {
 
 function trace(dir, fn_name) {
     if (fn_name.startsWith("*")) fn_name = fn_name.substring(1);
-    return `TRACE("${dir} ${fn_name}");`;
+    return `TRACE("${dir} ${mod_name}.${fn_name}\\n");`;
 }
 
 function assign_trace(varname) {
-    return `TRACE("${varname}=%p", ${varname});`;
+    return `TRACE("${varname}=%p\\n", ${varname});`;
 }
 
 function weave(lines) {
@@ -89,10 +91,15 @@ function weave(lines) {
 
 async function main$(_opts) {
     let opts = _opts || gprocs.args("--bucket=devcybiko.s3,--outdir=metadata,--prefix=Music/Music,--file=", "infile*,outfile*");
-    let lines = gfiles.readList(opts.infile);
-    let results = weave(lines);
-    gfiles.writeList(opts.outfile, results);
-
+    let lines = gfiles.read(opts.infile);
+    if (lines.includes("TRACE_ON")) {
+        let path = paths.parse(opts.infile);
+        mod_name = path.name;
+        let results = weave(lines.split("\n"));
+        gfiles.writeList(opts.outfile, results);
+    } else {
+        gfiles.write(opts.outfile, lines);
+    }
 }
 
 module.exports = { main$ }

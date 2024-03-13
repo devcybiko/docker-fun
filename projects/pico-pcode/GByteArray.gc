@@ -1,3 +1,5 @@
+#define TRACE_ON
+
 #include "GByteArray.h"
 
 GByteArray* GByteArray_new(int extent)
