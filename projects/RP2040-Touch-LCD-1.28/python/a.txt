@@ -1,0 +1,12 @@
+upright face me=-94 10 10
+upright face away-95 1 -15
+upright face left=-95 10 -1
+upright face right=-95 0 5
+
+face up away= 0 0 -100
+face up ror right=0 21 -100
+face up towards me=0 0 -100
+
+face down = 0 0 +100
+
+
