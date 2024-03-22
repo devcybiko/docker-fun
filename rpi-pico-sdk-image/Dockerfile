@@ -12,25 +12,25 @@ RUN apt-get install -y curl
 RUN apt-get install -y indent
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
+RUN apt-get install -y pkg-config
+
+## for openocd / usb port access
+RUN apt-get install -y usbutils
+RUN apt-get install -y kmod
+RUN sudo apt-get install -y udev
+
 # Copy the script to the container
 RUN echo "...copy some install scripts..."
-COPY pico_setup.sh /usr/local/bin/pico_setup.sh
-COPY install.sh /usr/local/bin/install.sh
-COPY hello.sh /usr/local/bin/hello.sh
-COPY makepico.sh /usr/local/bin/makepico.sh
-COPY env.sh /usr/local/bin/env.sh
-COPY login.sh /usr/local/bin/login.sh
-COPY bashrc /home/.bashrc
+COPY scripts/* /usr/local/bin
+COPY scripts/bashrc /home/.bashrc
+COPY 60-openocd.rules /etc/udev/rules.d
 
 # Give execution rights on the script
 RUN echo "... chmod installed scripts..."
-RUN chmod +x /usr/local/bin/pico_setup.sh
-RUN chmod +x /usr/local/bin/install.sh
-RUN chmod +x /usr/local/bin/hello.sh
-RUN chmod +x /usr/local/bin/makepico.sh
-RUN chmod +x /usr/local/bin/login.sh
+RUN chmod +x /usr/local/bin/*.sh
+
+# install all the RPI SDK
+RUN /usr/local/bin/install.sh
 
 # Command to execute the script when the container starts
-CMD ["/usr/local/bin/install.sh"]
-# CMD ["/bin/bash"]
-
+CMD ["/bin/bash"]

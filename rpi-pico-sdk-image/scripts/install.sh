@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export SKIP_OPENOCD=1
+# export SKIP_OPENOCD=1
 export SKIP_VSCODE=1
 export SKIP_UART=1
 
