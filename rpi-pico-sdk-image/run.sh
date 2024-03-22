@@ -10,5 +10,6 @@ echo "Using projects directory: $projects"
 # podman machine set --usb bus=0,devnum=2
 
 # podman run -it 8443:8443 -v "$projects:/home/projects" rpi-pico-sdk-image  /usr/local/bin/login.sh
-podman run -it -v "$projects:/home/projects" --device=/dev/cu.usbmodem1302 --privileged --name rpi-pico-sdk-container rpi-pico-sdk-image  /usr/local/bin/login.sh
+podman container rm rpi-pico-sdk-container
+podman run -it -v "$projects:/home/projects" --device=/dev/cu.usbmodem1302:/dev/usbmon1 --privileged --name rpi-pico-sdk-container rpi-pico-sdk-image  /usr/local/bin/login.sh
 echo $?
