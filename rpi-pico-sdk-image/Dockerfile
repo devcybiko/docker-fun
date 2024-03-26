@@ -13,17 +13,14 @@ RUN apt-get install -y indent
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
 RUN apt-get install -y pkg-config
-
-## for openocd / usb port access
+RUN apt-get install -y minicom
 RUN apt-get install -y usbutils
-RUN apt-get install -y kmod
-RUN sudo apt-get install -y udev
+
 
 # Copy the script to the container
 RUN echo "...copy some install scripts..."
 COPY scripts/* /usr/local/bin
 COPY scripts/bashrc /home/.bashrc
-COPY 60-openocd.rules /etc/udev/rules.d
 
 # Give execution rights on the script
 RUN echo "... chmod installed scripts..."

@@ -8,5 +8,5 @@ cd /home
 source .bashrc
 rm -rf pico
 /usr/local/bin/pico_setup.sh
-/usr/local/bin/makepico.sh example
+# /usr/local/bin/makepico.sh example
 # /bin/bash

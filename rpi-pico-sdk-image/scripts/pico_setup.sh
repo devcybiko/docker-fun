@@ -128,7 +128,7 @@ else
     # Should we include picoprobe support (which is a Pico acting as a debugger for another Pico)
     INCLUDE_PICOPROBE=0
     OPENOCD_BRANCH="rp2040-v0.12.0"
-    OPENOCD_CONFIGURE_ARGS="--enable-ftdi --enable-sysfsgpio --enable-bcm2835gpio"
+    OPENOCD_CONFIGURE_ARGS="--enable-ftdi --enable-sysfsgpio --enable-bcm2835gpio --enable-cmsis-dap --enable-picoprobe"
     if [[ "$INCLUDE_PICOPROBE" == 1 ]]; then
         OPENOCD_CONFIGURE_ARGS="$OPENOCD_CONFIGURE_ARGS --enable-picoprobe"
     fi
