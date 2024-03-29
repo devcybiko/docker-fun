@@ -1,5 +1,4 @@
-#include "GDefines.h"
-#include "Template.h"
+#include "Goop.h"
 #include "GObj.h"
 
 void* _THIS_; // this

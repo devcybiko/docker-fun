@@ -1,5 +1,7 @@
-#ifndef __Template__
-#define __Template__
+#ifndef __Goop__
+#define __Goop__
+
+#include "GDefines.h"
 
 extern void *_THIS_; // this
 extern void *_this();
@@ -76,4 +78,4 @@ Obj* Obj##_new(__VA_ARGS__)\
     TRACE("< %s.new %p\n", STRINGIFY(Obj), this);\
     return this;\
 }
-#endif // __Template__
+#endif // __Goop__

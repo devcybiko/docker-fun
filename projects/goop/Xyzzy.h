@@ -3,7 +3,6 @@
 
 #include "GObj.h"
 #include "GList.h"
-#include "XyzzyEntry.h"
 
 // echo -n "Xyzzy" | xxd -ps
 // 4743726f6e

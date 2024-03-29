@@ -3,8 +3,7 @@
 
 #define TRACE_OFF
 
-#include "GDefines.h"
-#include "Template.h"
+#include "Goop.h"
 
 static void _initClass();
 

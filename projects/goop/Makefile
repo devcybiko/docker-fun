@@ -1,9 +1,8 @@
-CPPFLAGS = -D__LINUX__  -I../goop # -g -Wall -std=c++11 -fpermissive -w 
+CPPFLAGS = -D__LINUX__ # -g -Wall -std=c++11 -fpermissive -w 
 
-OBJECTS = main.o GCronEntry.o GTimer.o GCron.o
-LIBS = ../goop/G*.o
+OBJECTS = main.o Goop.o GObj.o GList.o GMap.o
 C_SOURCES := $(OBJECTS:.o=.c)          # Convert .o to .c
-GC_SOURCES := $(OBJECTS:.o=.gc)          # Convert .o to .c
+GC_SOURCES := $(OBJECTS:.o=.gc)        # Convert .o to .gc
 
 .SECONDARY: ### don't delete the generated .c files
 
@@ -17,7 +16,7 @@ endif
 	$(TRACE_WEAVE_CMD) $< $@
 
 main: $(OBJECTS)
-	gcc -o main $(OBJECTS) $(CPPFLAGS) $(LIBS)
+	gcc -o main $(OBJECTS) $(CPPFLAGS)
 
 # Clean up the build
 clean:
