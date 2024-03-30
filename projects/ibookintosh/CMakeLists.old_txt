@@ -1,0 +1,29 @@
+cmake_minimum_required(VERSION 3.14)
+
+set(NAME ibookintosh)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdebug-prefix-map=${CMAKE_SOURCE_DIR}=.")
+
+include(pico_sdk_import.cmake)
+include(../goop/goop.cmake)
+include(../gtos/gtos.cmake)
+
+project(${NAME} VERSION 1.0.0)
+
+add_executable(${NAME}
+    main.c
+)
+
+pico_sdk_init()
+
+pico_enable_stdio_usb(ibookintosh 0)
+pico_enable_stdio_uart(ibookintosh 1)
+pico_add_extra_outputs(ibookintosh)
+
+target_link_libraries(ibookintosh goop gtos tps65
+                      pico_stdlib
+                      hardware_gpio
+                      hardware_i2c
+                      hardware_spi
+                      hardware_adc
+                      hardware_uart)

@@ -1,22 +1,22 @@
 cmake_minimum_required(VERSION 3.12)
 
-include(PrintVariables.cmake)
-print_variables("./CMakeLists.txt")
+# Change your executable name to something creative!
+set(NAME ExtBlink3) # <-- Name your project/executable here!
 
-set(NAME ibookintosh)
 include(pico_sdk_import.cmake)
 
 # Gooey boilerplate
 project(${NAME} C CXX ASM)
-# project(${NAME} VERSION 1.0.0) # GLS - what are C CXX ASM?
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
+# Initialize the SDK
 pico_sdk_init()
 
-add_subdirectory(libs/goop)
-add_subdirectory(libs/gtos)
-add_subdirectory(libs/tps65)
+
+include("Blink.cmake")
+
+
 add_subdirectory(src)
 
 #Set up files for the release packages
@@ -31,4 +31,3 @@ install(FILES
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
 set(CPACK_GENERATOR "ZIP" "TGZ")
 include(CPack)
-

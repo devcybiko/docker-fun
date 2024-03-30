@@ -152,14 +152,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/projects/ibookintosh && $(CMAKE_COMMAND) -E cmake_progress_start /home/projects/ibookintosh/CMakeFiles /home/projects/ibookintosh/libs/gtos//CMakeFiles/progress.marks
-	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/gtos/all
+	cd /home/projects/ibookintosh && $(CMAKE_COMMAND) -E cmake_progress_start /home/projects/ibookintosh/CMakeFiles /home/projects/ibookintosh/libs/tps65//CMakeFiles/progress.marks
+	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/tps65/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/projects/ibookintosh/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/gtos/clean
+	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/tps65/clean
 .PHONY : clean
 
 # The main clean target
@@ -168,12 +168,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/gtos/preinstall
+	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/tps65/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/gtos/preinstall
+	cd /home/projects/ibookintosh && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 libs/tps65/preinstall
 .PHONY : preinstall/fast
 
 # clear depends

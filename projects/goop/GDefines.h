@@ -20,4 +20,6 @@
 
 #define STRINGIZE(x) #x
 
+#define __PICO__
+
 #endif // __GDefines__
