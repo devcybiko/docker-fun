@@ -1,4 +1,4 @@
-_projects="${1:-../projects}"
+_projects="${1:-./projects}"
 projects=`realpath $_projects`
 echo "Using projects directory: $projects"
 # podman machine stop ### you may need to restart the podman machine
