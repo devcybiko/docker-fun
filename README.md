@@ -153,6 +153,7 @@ Add the paths to your include files to the "includePath" setting. Paths are rela
     - https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman
 - SHIFT-CMD-P -> "Dev Containers: Attach to Running Container"
     - It will install the server component for you
+- https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
 
 ## Permission issues
 - If you get problems with "Error statfs no such file or directory"

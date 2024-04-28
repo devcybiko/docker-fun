@@ -1,9 +1,0 @@
-{
-    "C_Cpp.errorSquiggles": "enabled",
-    "C_Cpp.default.includePath": [
-        "${PICO_SDK_PATH}/**:${PICO_EXTRAS_PATH}/**:/${workspaceFolder}/**",
-        "${PICO_SDK_PATH}/src/common/pico_base/include"
-    ],
-    "cmake.configureOnOpen": false,
-    "workbench.colorTheme": "Solarized Dark"
-}
